@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.phil.aic.dao.AccountMapper">
+  <resultMap id="AccountResultMap" type="com.phil.aic.bean.Account">
+    <id column="account" jdbcType="VARCHAR" property="account" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
+    <result column="is_leader" jdbcType="INTEGER" property="isLeader" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+  </resultMap>
+  <sql id="Account_Base_Column_List">
+    account, password, dept_id, is_leader, tel, account_name
+  </sql>
+  <select id="selectAccountByPrimaryKey" parameterType="java.lang.String" resultMap="AccountResultMap">
+    select 
+    <include refid="Account_Base_Column_List" />
+    from account
+    where account = #{account,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteAccountByPrimaryKey" parameterType="java.lang.String">
+    delete from account
+    where account = #{account,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertAccount" parameterType="com.phil.aic.bean.Account">
+    insert into account (account, password, dept_id, 
+      is_leader, tel, account_name
+      )
+    values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER}, 
+      #{isLeader,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, #{accountName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelectiveAccount" parameterType="com.phil.aic.bean.Account">
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        account,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="deptId != null">
+        dept_id,
+      </if>
+      <if test="isLeader != null">
+        is_leader,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="accountName != null">
+        account_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="isLeader != null">
+        #{isLeader,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        #{accountName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateAccountByPrimaryKeySelective" parameterType="com.phil.aic.bean.Account">
+    update account
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null">
+        dept_id = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="isLeader != null">
+        is_leader = #{isLeader,jdbcType=INTEGER},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName != null">
+        account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where account = #{account,jdbcType=VARCHAR}
+  </update>
+  <update id="updateAccountByPrimaryKey" parameterType="com.phil.aic.bean.Account">
+    update account
+    set password = #{password,jdbcType=VARCHAR},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      is_leader = #{isLeader,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      account_name = #{accountName,jdbcType=VARCHAR}
+    where account = #{account,jdbcType=VARCHAR}
+  </update>
+</mapper>
