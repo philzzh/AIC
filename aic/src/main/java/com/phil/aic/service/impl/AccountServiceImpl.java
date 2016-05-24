@@ -25,7 +25,7 @@ public class AccountServiceImpl implements IAccountService {
 	public String match(Account account) {
 		// TODO Auto-generated method stub
 		String msg="";
-		Account account_ = this.accountMapper.selectAccountByPrimaryKey(account.getAccount());
+		Account account_ = this.accountMapper.selectAccountByPrimaryKey(account.getAccountId());
 		if(account_==null){
 			msg = "0";//不存在用户
 		}

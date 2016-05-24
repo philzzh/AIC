@@ -5,13 +5,13 @@ public class Account {
 		super();
 	}
 
-	private String account;
+	private String accountId;
 
     private String password;
 
-    public Account(String account, String password, Integer deptId, Integer isLeader, String tel, String accountName) {
+    public Account(String accountId, String password, Integer deptId, Integer isLeader, String tel, String accountName) {
 		super();
-		this.account = account;
+		this.accountId = accountId;
 		this.password = password;
 		this.deptId = deptId;
 		this.isLeader = isLeader;
@@ -27,12 +27,12 @@ public class Account {
 
     private String accountName;
 
-    public String getAccount() {
-        return account;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+    public void setAccountId(String accountId) {
+        this.accountId = accountId == null ? null : accountId.trim();
     }
 
     public String getPassword() {
