@@ -22,11 +22,11 @@
 	<div style="margin:20px 0"></div>
 	<div class="easyui-panel" title="登录" style="width:400px;" ><div style="margin:10px 0px 0px 40px;"><img src="./images/title.png" /></div>
 		<div style="padding:10px 60px 20px 60px">
-	    <form id="accountForm" method="post" action="login">
+	    <form id="accountForm" method="post" action="account/main">
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>&nbsp;&nbsp;</td>
-	    			<td>&nbsp;&nbsp;&nbsp;<input class="easyui-textbox" type="text" name="account" id="account" prompt="用户名" data-options="required:true,iconCls:'icon-man',iconAlign:'right'" style="width:200px;height:40px"></input></td>
+	    			<td>&nbsp;&nbsp;&nbsp;<input class="easyui-textbox" type="text" name="accountId" id="accountId" prompt="用户名" data-options="required:true,iconCls:'icon-man',iconAlign:'right'" style="width:200px;height:40px"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>&nbsp;&nbsp;</td>
@@ -73,9 +73,10 @@
 	            data:data, //发送给服务器的参数  
 	           // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
 	            success:function(data){  
-	            	alert(data);
+	            //	alert(data);
 	            	if(data=="0") {
 	            		alert("用户不存在！");
+	            		$("#button_submit").invalidMessage = "用户不存在！";
 	            		return false;	
 	            	}
 	            	if(data=="1"){
@@ -84,7 +85,7 @@
 	            	}
 	            	if(data=="2"){
 	            	   //var m = ${account.accountName};
-	            	   alert($account.accountName);	
+	            	   $("#accountForm").submit();
 	            	}
                       
                 },  

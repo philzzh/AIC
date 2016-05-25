@@ -16,24 +16,18 @@ public class AccountServiceImpl implements IAccountService {
 	private AccountMapper accountMapper;
 	
 
-	public Account getAccountByAccount(String account) {
+	public Account getAccountByAccountId(String accountId) {
 		// TODO Auto-generated method stub
-		return this.accountMapper.selectAccountByPrimaryKey(account);
+		return this.accountMapper.selectAccountByPrimaryKey(accountId);
 	}
 
 
-	public String match(Account account) {
+	/*public String match(Account account) {
 		// TODO Auto-generated method stub
-		String msg="";
+		
 		Account account_ = this.accountMapper.selectAccountByPrimaryKey(account.getAccountId());
-		if(account_==null){
-			msg = "0";//不存在用户
-		}
-		else if(!account_.getPassword().equals(account.getPassword())){
-			msg = "1";//密码错误
-		}
-		return msg;
-	}
+		
+	}*/
 
 
 }

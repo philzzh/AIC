@@ -2,12 +2,12 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title>Complex Layout - jQuery EasyUI Demo</title>
-	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="../demo.css">
-	<script type="text/javascript" src="../../jquery.min.js"></script>
-	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<title>工商执法系统</title>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/demo.css">
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
 	<!--<style type="text/css">
         .easyui-accordion ul
         {
@@ -55,7 +55,7 @@
 <body class="easyui-layout">
 	
 		<div id="north" data-options="region:'north'" style="height:65px;background-color:#3399ff;">
-			<img src="./images/title.png" />
+			<img src="../images/title.png" />
 			<div style="position:absolute;width:200px;height:55px;right:6px;top:45px;">您好，张振华!&nbsp;&nbsp;<a href="">退出</a>&nbsp;&nbsp;<a href="#" onclick="showDialog('修改密码','password_update.html',314,208);">修改密码</a></div>
 		</div>
 		<div data-options="region:'south',split:true" style="height:50px;background-color:#3399ff;">版权所有PhilZhang</div>

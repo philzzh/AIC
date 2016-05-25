@@ -16,7 +16,14 @@
 	        <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
 	    </mvc:message-converters>
 	</mvc:annotation-driven>
-    
+    <!-- 登录拦截器 -->  
+	<mvc:interceptors>   
+	  <mvc:interceptor>   
+	    <mvc:mapping path="W/account/*"/> <!-- 管理员登录拦截 -->  
+	    <mvc:exclude-mapping path="/account/login"/>
+	    <bean class="com.phil.aic.interceptor.AccountInterceptor"></bean>   
+	  </mvc:interceptor>   
+	</mvc:interceptors> 
 	<!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
 	<context:component-scan base-package="com.phil.aic.controller" />
 	<!--避免IE执行AJAX时，返回JSON出现下载文件 -->
