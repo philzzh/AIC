@@ -60,7 +60,7 @@ public class AccountController {
 			return null;
 		}
 		else {
-			model.addAttribute("account", account);
+			model.addAttribute("account", account_);
 			s.print("2");
 			return null;
 		}

@@ -16,11 +16,16 @@
 	        <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
 	    </mvc:message-converters>
 	</mvc:annotation-driven>
+	
+	<mvc:view-controller path="/account/login" view-name="redirect:/aic"/>
+	
     <!-- 登录拦截器 -->  
 	<mvc:interceptors>   
 	  <mvc:interceptor>   
-	    <mvc:mapping path="W/account/*"/> <!-- 管理员登录拦截 -->  
+	    <mvc:mapping path="/**"/> <!-- 管理员登录拦截 -->
+	    <mvc:exclude-mapping path="/"/>    
 	    <mvc:exclude-mapping path="/account/login"/>
+	    <mvc:exclude-mapping path="/account/check"/>
 	    <bean class="com.phil.aic.interceptor.AccountInterceptor"></bean>   
 	  </mvc:interceptor>   
 	</mvc:interceptors> 

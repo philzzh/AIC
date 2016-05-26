@@ -15,7 +15,8 @@ public class AccountInterceptor implements HandlerInterceptor {
 		if (sessionObj != null) {
 			return true;
 		}
-		response.sendRedirect("account/login");
+//		response.getWriter().write("<script>alert('Session过期，请重新登录！');</script>;");
+		response.sendRedirect(request.getContextPath()+"/");
 		return false;
 	}
 
