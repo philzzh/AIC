@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ page language="Java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+	
+	<%
+	 request.setCharacterEncoding("UTF-8");
+	%>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 	<title>工商执法系统</title>
 	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
@@ -56,7 +62,7 @@
 	
 		<div id="north" data-options="region:'north'" style="height:65px;background-color:#3399ff;">
 			<img src="../images/title.png" />
-			<div style="position:absolute;width:200px;height:55px;right:6px;top:45px;">您好，张振华!&nbsp;&nbsp;<a href="">退出</a>&nbsp;&nbsp;<a href="#" onclick="showDialog('修改密码','password_update.html',314,208);">修改密码</a></div>
+			<div style="position:absolute;width:200px;height:55px;right:6px;top:45px;">您好，${account.accountName}&nbsp;&nbsp;<a href="">退出</a>&nbsp;&nbsp;<a href="#" onclick="showDialog('修改密码','password_update.html',314,208);">修改密码</a></div>
 		</div>
 		<div data-options="region:'south',split:true" style="height:50px;background-color:#3399ff;">版权所有PhilZhang</div>
 		<!--<div data-options="region:'east',split:true,collapsed:true" title="East" style="width:180px;">

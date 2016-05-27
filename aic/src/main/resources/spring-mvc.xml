@@ -13,7 +13,6 @@
 	    <mvc:message-converters>
 	        <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
 	        <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
-	        <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
 	    </mvc:message-converters>
 	</mvc:annotation-driven>
 	
