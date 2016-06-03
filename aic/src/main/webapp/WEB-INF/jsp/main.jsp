@@ -241,7 +241,7 @@ function addTab1(subtitle, url) {
 function addTabAction(subtitle) {
 	$.ajax({  
         type:"POST",   //http请求方式  
-        url:"dept/getDeptUser", //发送给服务器的url  
+        url:"<%=request.getContextPath()%>/dept/getDeptUser", //发送给服务器的url  
         //data:data, //发送给服务器的参数  
        // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
         success:function(data){  
