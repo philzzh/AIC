@@ -86,7 +86,7 @@
 				</div>
 				<div title="系统管理" style="padding:10px" data-options="iconCls:'icon-lock'">
 					<ul class="easyui-tree">
-							<li data-options="iconCls:'icon-man'"><div><span href="#" onclick="addTab1('部门/用户管理','department_user_CRUD.html');">部门/用户管理</span><div></li>
+							<li data-options="iconCls:'icon-man'"><div><span href="#" onclick="addTabAction('部门/用户管理');">部门/用户管理</span><div></li>
 							<li data-options="iconCls:'icon-large-smartart'"><div><span href="#" onclick="addTab1('法律法规库管理','law_management.html');">法律法规库管理</span><div></li>
 					</ul>
 				</div>
@@ -225,7 +225,38 @@ function addTab(subtitle, url) {
 
 function addTab1(subtitle, url) {
     if (!$('#tabs').tabs('exists', subtitle)) {
-		var content = '<iframe scrolling="yes" frameborder="0"  src="' + url + '" style="width:99%;height:99%;"></iframe>';;
+		var content = '<iframe scrolling="yes" frameborder="0"  src="' + url + '" style="width:99%;height:99%;"></iframe>';
+		$('#tabs').tabs('add', {
+            title: subtitle,
+            content: content,
+            closable: true,
+            width: $('#mainPanel').width() - 20,
+            height: $('#mainPanel').height() - 40
+        });
+    } else {
+        $('#tabs').tabs('select', subtitle);
+    }
+}
+
+function addTabAction(subtitle) {
+	$.ajax({  
+        type:"POST",   //http请求方式  
+        url:"dept/getDeptUser", //发送给服务器的url  
+        //data:data, //发送给服务器的参数  
+       // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
+        success:function(data){  
+        //	alert(data);
+        	addTabContent(subtitle,data);
+        },  
+        error:function(e) {  
+            alert("出错：请联系管理员！");  
+        }  
+    });  
+}
+
+function addTabContent(subtitle, content) {
+    if (!$('#tabs').tabs('exists', subtitle)) {
+		//var content = '<iframe scrolling="yes" frameborder="0"  src="' + url + '" style="width:99%;height:99%;"></iframe>';
 		$('#tabs').tabs('add', {
             title: subtitle,
             content: content,

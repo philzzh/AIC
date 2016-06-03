@@ -1,8 +1,13 @@
 package com.phil.aic.service;
 
-import com.phil.aic.bean.User;
+import java.util.HashMap;
+import java.util.List;
+
+import com.phil.aic.bean.Department;
 
 public interface IDepartmentService {
 	
-	public User getUserById(int userId);
+	public Department getDepartmentById(int deptId);
+	
+	List<HashMap> getDepartmentUser();
 }
