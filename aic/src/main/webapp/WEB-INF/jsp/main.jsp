@@ -86,7 +86,7 @@
 				</div>
 				<div title="系统管理" style="padding:10px" data-options="iconCls:'icon-lock'">
 					<ul class="easyui-tree">
-							<li data-options="iconCls:'icon-man'"><div><span href="#" onclick="addTabAction('部门/用户管理');">部门/用户管理</span><div></li>
+							<li data-options="iconCls:'icon-man'"><div><span href="#" onclick="addTab2('部门/用户管理');">部门/用户管理</span><div></li>
 							<li data-options="iconCls:'icon-large-smartart'"><div><span href="#" onclick="addTab1('法律法规库管理','law_management.html');">法律法规库管理</span><div></li>
 					</ul>
 				</div>
@@ -237,6 +237,21 @@ function addTab1(subtitle, url) {
         $('#tabs').tabs('select', subtitle);
     }
 }
+function addTab2(subtitle) {
+    if (!$('#tabs').tabs('exists', subtitle)) {
+		var content = '<iframe scrolling="yes" frameborder="0"  src="<%=request.getContextPath()%>/dept/getDeptUser" style="width:99%;height:99%;"></iframe>';
+		alert(content);
+		$('#tabs').tabs('add', {
+            title: subtitle,
+            content: content,
+            closable: true,
+            width: $('#mainPanel').width() - 20,
+            height: $('#mainPanel').height() - 40
+        });
+    } else {
+        $('#tabs').tabs('select', subtitle);
+    }
+}
 
 function addTabAction(subtitle) {
 	$.ajax({  
@@ -254,9 +269,10 @@ function addTabAction(subtitle) {
     });  
 }
 
-function addTabContent(subtitle, content) {
+function addTabContent(subtitle, data) {
     if (!$('#tabs').tabs('exists', subtitle)) {
-		//var content = '<iframe scrolling="yes" frameborder="0"  src="' + url + '" style="width:99%;height:99%;"></iframe>';
+		var content = '<iframe scrolling="yes" frameborder="0"  src=style="width:99%;height:99%;">'+ data +  '</iframe>';
+		alert(content);
 		$('#tabs').tabs('add', {
             title: subtitle,
             content: content,

@@ -1,6 +1,5 @@
 package com.phil.aic.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.phil.aic.bean.Department;
@@ -18,5 +17,5 @@ public interface DepartmentMapper {
 
     int updateByPrimaryKey(Department record);
     
-    List<HashMap> selectDepartmentUser();
+    List<Department> selectDepartmentUser();
 }

@@ -9,5 +9,5 @@ public interface IDepartmentService {
 	
 	public Department getDepartmentById(int deptId);
 	
-	List<HashMap> getDepartmentUser();
+	List<Department> getDepartmentUser();
 }

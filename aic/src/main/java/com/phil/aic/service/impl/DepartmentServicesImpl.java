@@ -23,7 +23,7 @@ public class DepartmentServicesImpl implements IDepartmentService {
 	}
 
 	@Override
-	public List<HashMap> getDepartmentUser() {
+	public List<Department> getDepartmentUser() {
 		// TODO Auto-generated method stub
 		return departmentMapper.selectDepartmentUser();
 	}

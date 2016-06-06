@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<%@ page language="Java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+	<%
+	 request.setCharacterEncoding("UTF-8");
+	%>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 	<title>部门/用户管理</title>
-	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="../demo.css">
-	<script type="text/javascript" src="../../jquery.min.js"></script>
-	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/demo.css">
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
 </head>
 <body oncontextmenu="return false">
 	<h2>部门/用户管理</h2>
@@ -15,7 +20,7 @@
 	
 	<div class="easyui-panel" style="padding:5px">
 		<ul id="tt" class="easyui-tree" data-options="
-				url: 'tree_data1.json',
+				url:'<%=request.getContextPath()%>/dept/getDeptUserJson',
 				method: 'get',
 				animate: true,
 				onContextMenu: function(e,node){
@@ -37,7 +42,15 @@
 	</div>
 	<div id="dd"></div>
 	<script type="text/javascript">
-		
+
+		$(function(){
+			getDeptUserJson();
+		})
+		function getDeptUserJson() {
+			 $('#tt').tree({
+		          url:'"<%=request.getContextPath()%>/dept/getDeptUserJson"'
+		     });
+		}
 		function showDialog(subtitle,url,width,height) {
 		$('#dd').dialog({
 						title: subtitle,
