@@ -11,7 +11,7 @@ public interface AccountMapper {
 
     Account selectAccountByPrimaryKey(String account);
 
-    int updateByPrimaryKeySelective(Account record);
+    int updateAccountByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -52,7 +53,7 @@ public class AccountController {
 		PrintWriter s = response.getWriter();
 		Account account_ = this.accountService.getAccountByAccountId(account.getAccountId());
 		if(account_==null){
-			s.print("0");//�������û�
+			s.print("0");//是
 			return null;
 		}
 		else if(!account_.getPassword().equals(account.getPassword())){
@@ -71,5 +72,25 @@ public class AccountController {
 		model.asMap().remove("account");
 		session.invalidate();
 		return "redirect:/";	
+	}
+	@RequestMapping(value = "/toUpdatePwd")
+	public String toUpdatePwd(){
+			return "passwordUpdate";
+	}
+	@RequestMapping("/updatePwd")
+	public String updatePwd(Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		PrintWriter s = response.getWriter();
+		Account account = (Account) model.asMap().get("account");
+//		Account account_ = new Account();
+		if(account.getPassword().equals(request.getParameter("password"))){
+			account.setPassword(request.getParameter("npassword"));
+			int result = this.accountService.updateAccountByPrimaryKeySelective(account);
+			model.addAttribute(account);
+			s.print(result);
+		}
+		else {
+			s.print(-1);
+		}
+		return null;	
 	}
 }

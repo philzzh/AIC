@@ -113,7 +113,7 @@
 	    });  
 	
 		function checkIsRight() {  
-			if($("#accountForm").form('validate')==true){
+			if($("#accountForm").form('validate')){
 				var data = $("#accountForm").serializeArray();   
 		        $.ajax({  
 		            type:"POST",   //http请求方式  

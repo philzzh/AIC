@@ -6,4 +6,5 @@ public interface IAccountService {
 	
 //	public String match(Account account);
 	public Account getAccountByAccountId(String accountId);
+	public int updateAccountByPrimaryKeySelective(Account account);
 }

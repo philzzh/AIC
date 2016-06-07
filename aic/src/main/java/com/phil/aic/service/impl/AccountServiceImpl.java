@@ -22,6 +22,14 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 
+	@Override
+	public int updateAccountByPrimaryKeySelective(Account account) {
+		// TODO Auto-generated method stub
+		return this.accountMapper.updateAccountByPrimaryKeySelective(account);
+		
+	}
+
+
 	/*public String match(Account account) {
 		// TODO Auto-generated method stub
 		

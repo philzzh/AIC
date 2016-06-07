@@ -62,7 +62,7 @@
 	
 		<div id="north" data-options="region:'north'" style="height:65px;background-color:#3399ff;">
 			<img src="../images/title.png" />
-			<div style="position:absolute;width:200px;height:55px;right:6px;top:45px;">您好，${account.accountName}&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/account/logout">退出</a>&nbsp;&nbsp;<a href="#" onclick="showDialog('修改密码','password_update.html',314,208);">修改密码</a></div>
+			<div style="position:absolute;width:200px;height:55px;right:6px;top:45px;">您好，${account.accountName}&nbsp;&nbsp;<a href="<%=request.getContextPath()%>/account/logout">退出</a>&nbsp;&nbsp;<a href="#" onclick="showDialog('修改密码','account/toUpdatePwd',314,208);">修改密码</a></div>
 		</div>
 		<div data-options="region:'south',split:true" style="height:50px;background-color:#3399ff;">版权所有PhilZhang</div>
 		<!--<div data-options="region:'east',split:true,collapsed:true" title="East" style="width:180px;">
@@ -184,8 +184,9 @@
 						height: height,
 						closed: false,
 						cache: false,
-						href: url,
-						modal: true/*,
+						href: "<%=request.getContextPath()%>/"+url,
+						modal: true,
+						/*,
 						toolbar:[{
 							text:'save',
 							iconCls:'icon-edit',
