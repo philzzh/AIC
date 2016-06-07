@@ -52,11 +52,11 @@ public class AccountController {
 		PrintWriter s = response.getWriter();
 		Account account_ = this.accountService.getAccountByAccountId(account.getAccountId());
 		if(account_==null){
-			s.print("0");//²»´æÔÚÓÃ»§
+			s.print("0");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½
 			return null;
 		}
 		else if(!account_.getPassword().equals(account.getPassword())){
-			s.print("1");//ÃÜÂë´íÎó
+			s.print("1");//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			return null;
 		}
 		else {
@@ -70,6 +70,6 @@ public class AccountController {
 		
 		model.asMap().remove("account");
 		session.invalidate();
-		return "redirect:/login";	
+		return "redirect:/";	
 	}
 }

@@ -24,13 +24,21 @@
 		<div style="padding:10px 60px 20px 60px">
 	    <form id="accountForm" method="post" action="account/main">
 	    	<table cellpadding="5">
-	    		<tr>
+	    		<!--<tr>
 	    			<td>&nbsp;&nbsp;</td>
 	    			<td>&nbsp;&nbsp;&nbsp;<input class="easyui-textbox" type="text" name="accountId" id="accountId" prompt="用户名" data-options="required:true,iconCls:'icon-man',iconAlign:'right'" style="width:200px;height:40px"></input></td>
 	    		</tr>
 	    		<tr>
 	    			<td>&nbsp;&nbsp;</td>
 	    			<td>&nbsp;&nbsp;&nbsp;<input class="easyui-textbox" type="password" name="password" id="password" prompt="密码"  data-options="required:true,iconCls:'icon-lock',iconAlign:'right'" style="width:200px;height:40px"></input></td>
+	    		</tr>-->
+	    		<tr>
+	    			<td>&nbsp;&nbsp;</td>
+	    			<td>&nbsp;&nbsp;&nbsp;<input class="easyui-validatebox textbox" type="text" name="accountId" id="accountId" missingMessage="请输入用户名." prompt="用户名" validType="namePwd"  required="true" style="width:200px;height:40px"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>&nbsp;&nbsp;</td>
+	    			<td>&nbsp;&nbsp;&nbsp;<input class="easyui-validatebox textbox" type="password" name="password" id="password" missingMessage="请输入密码." prompt="密码" required="true" validType="namePwd" style="width:200px;height:40px"></input></td>
 	    		</tr>
 	    	</table>
 	    </form>
@@ -43,6 +51,45 @@
 	</div>
 	<script>
 		$(document).ready(function(){  
+			
+			/*$.extend($.fn.validatebox.defaults.rules, {    
+		        namePwd: {    
+		            validator: function(value){    
+		                var flag;  
+		                var data = $("#accountForm").serializeArray();  
+		                    $.ajax({  
+		                            type: 'POST',   
+		                            url: 'account/check',  
+		                            data:data,  
+		                            async:false,  
+		                            success:function(data){  
+		                	            //	alert(data);
+		                	            	if(data=="0") {
+		                	            		message: '您输入的用户名已存在，请更换。' 
+		                	            		flag = false;	
+		                	            	}
+		                	            	if(data=="1"){
+		                	            		alert("密码错误！");
+		                	            		flag = false;
+		                	            	}
+		                	            	if(data=="2"){
+		                	            	   //var m = ${account.accountName};
+		                	            	   flag = true;
+		                	            	   $("#accountForm").submit();
+		                	            	}
+		                                      
+		                                },  
+		                                error:function(e) {  
+		                                    alert("出错：请联系管理员！");  
+		                                }  
+		                     });  
+		                  return flag;  
+		            },  
+		           message: '您输入的用户名已存在，请更换。'    
+		        }
+		    });  */
+		    
+			
 	        $("#button_submit").click(function(){  
 	              
 	            //序列化表单元素，返回json数据  
@@ -66,33 +113,35 @@
 	    });  
 	
 		function checkIsRight() {  
-			var data = $("#accountForm").serializeArray();   
-	        $.ajax({  
-	            type:"POST",   //http请求方式  
-	            url:"account/check", //发送给服务器的url  
-	            data:data, //发送给服务器的参数  
-	           // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
-	            success:function(data){  
-	            //	alert(data);
-	            	if(data=="0") {
-	            		alert("用户不存在！");
-	            		$("#button_submit").invalidMessage = "用户不存在！";
-	            		return false;	
-	            	}
-	            	if(data=="1"){
-	            		alert("密码错误！");
-	            		return false;
-	            	}
-	            	if(data=="2"){
-	            	   //var m = ${account.accountName};
-	            	   $("#accountForm").submit();
-	            	}
-                      
-                },  
-                error:function(e) {  
-                    alert("出错：请联系管理员！");  
-                }  
-	        });  
+			if($("#accountForm").form('validate')==true){
+				var data = $("#accountForm").serializeArray();   
+		        $.ajax({  
+		            type:"POST",   //http请求方式  
+		            url:"account/check", //发送给服务器的url  
+		            data:data, //发送给服务器的参数  
+		           // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
+		            success:function(data){  
+		            //	alert(data);
+		            	if(data=="0") {
+		            		alert("用户不存在！");
+		            		//$("#accountId").invalidMessage = "用户不存在！";
+		            		return false;	
+		            	}
+		            	if(data=="1"){
+		            		alert("密码错误！");
+		            		return false;
+		            	}
+		            	if(data=="2"){
+		            	   //var m = ${account.accountName};
+		            	   $("#accountForm").submit();
+		            	}
+	                      
+	                },  
+	                error:function(e) {  
+	                    alert("出错：请联系管理员！");  
+	                }  
+		        });  
+			}
 	    }  
 		function submitForm(){
 			var name = $("#account").val();  
