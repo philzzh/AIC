@@ -74,8 +74,15 @@ public class AccountController {
 		return "redirect:/";	
 	}
 	@RequestMapping(value = "/toUpdatePwd")
-	public String toUpdatePwd(){
+	public String toUpdatePwd(HttpServletRequest request){
+		if(request.getParameter("id")==null||request.getParameter("id")=="") {
+			
+		}
 			return "passwordUpdate";
+	}
+	@RequestMapping(value = "/toUpdateAccount")
+	public String toUpdateAccount(HttpServletRequest request){
+			return "userEdit";
 	}
 	@RequestMapping("/updatePwd")
 	public String updatePwd(Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
