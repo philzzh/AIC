@@ -10,4 +10,10 @@ public interface IDepartmentService {
 	public Department getDepartmentById(int deptId);
 	
 	List<Department> getDepartmentUser();
+	
+	public int insertDepartment(Department department);
+	
+	public int deleteDepartment(Department department);
+	
+	public int updateDepartment(Department department);
 }

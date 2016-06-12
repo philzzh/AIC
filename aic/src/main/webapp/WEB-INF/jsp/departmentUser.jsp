@@ -44,7 +44,8 @@
 		/*$(function(){
 			getDeptUserJson();
 		})*/
-		function treeAction(url) {
+		function treeAction(url,data) {
+			
 			$.ajax({  
 	            type:"POST",   //http请求方式  
 	            url:url, //发送给服务器的url  "<%=request.getContextPath()%>/dept/getDeptUserJson"
@@ -62,17 +63,28 @@
 		}
 		
 		function menuAction(type,width,height) {
+			var t = $('#tt');
 			var node = t.tree('getSelected');
 			var subtitle;
 			var url;
+			var data;
 			if(type==3) {
 				//treeAction("<%=request.getContextPath()%>/dept/deleteD");
+				alert(type);
 				if(t.tree('isLeaf',node.target)){
-					treeAction("<%=request.getContextPath()%>/account/deleteAccount");
+					alert(node.id);
+					data = {accountId:node.target.id};
+					//treeAction("<%=request.getContextPath()%>/account/deleteAccount");
 					return;
 				}
 				else  {
-					treeAction("<%=request.getContextPath()%>/dept/deleteDept");
+					alert(node.id);
+					/* var obj = {};  
+				    obj.name="Pandy";  
+				    obj.email="test@163.com";  
+				    var param = JSON.stringify(obj); */  
+					data = {deptId:node.target.id};
+					//treeAction("<%=request.getContextPath()%>/dept/deleteDept");
 					return;
 				}
 			}

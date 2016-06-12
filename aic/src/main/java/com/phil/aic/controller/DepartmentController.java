@@ -1,11 +1,15 @@
 package com.phil.aic.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,6 +44,44 @@ public class DepartmentController {
   
     }  
 	
+	@RequestMapping("/toDeptPage")
+	public String addDept(Department department) throws IOException{
+		/*if(department.getDeptId()) {
+			
+		}*/
+		return "departmentEdit";
+	}
+	
+	@RequestMapping("/addDept")
+	public String addDept(Department department,HttpServletResponse response) throws IOException{
+//		int userId = 1;//Integer.parseInt(request.getParameter("id"));
+		PrintWriter s = response.getWriter();
+		int result = this.depertmentService.insertDepartment(department);
+//		model.addAttribute("user", user);
+		s.print(result);
+		return null;
+	}
+	
+	@RequestMapping("/deleteDept")
+	public String deleteDept(Department department,HttpServletResponse response) throws IOException{
+//		int userId = 1;//Integer.parseInt(request.getParameter("id"));
+		PrintWriter s = response.getWriter();
+		int result = this.depertmentService.deleteDepartment(department);
+//		model.addAttribute("user", user);
+		s.print(result);
+		return null;
+	}
+	
+	@RequestMapping("/updateDept")
+	public String updateDept(Department department,HttpServletResponse response) throws IOException{
+//		int userId = 1;//Integer.parseInt(request.getParameter("id"));
+		PrintWriter s = response.getWriter();
+		int result = this.depertmentService.updateDepartment(department);
+//		model.addAttribute("user", user);
+		s.print(result);
+		return null;
+	}
+	
 	private List<HashMap> formatTree(List<Department> deptUser) {
 
 		String ID="id" ; 
@@ -49,7 +91,11 @@ public class DepartmentController {
 	    String STATE="state" ; 
 	    String CHECKED="checked" ; 
 	    String CHILDREN="children";
+	    HashMap root = new HashMap();
+	    root.put(ID, 0);
+	    root.put(TEXT, "工商行政管理局");
 	    List<HashMap> tree = new ArrayList<HashMap>();
+	    List<HashMap> subTree = new ArrayList<HashMap>();
 	    if (deptUser != null && deptUser.size() > 0) {
 	    	 //for (int i = 0; i < deptUser.size(); i++) {
 	    	for(Department dept : deptUser) {
@@ -69,10 +115,12 @@ public class DepartmentController {
 	    			 }
 	    			 node.put(CHILDREN, childrens);
 	    		 }
-	    		 tree.add(node);
+	    		 subTree.add(node);
 	    }
 	    	 
 	}
+	    root.put(CHILDREN,subTree);
+	    tree.add(root);
 	    return tree;
 	}
 }

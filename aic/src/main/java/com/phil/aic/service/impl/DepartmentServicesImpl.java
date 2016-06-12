@@ -22,12 +22,30 @@ public class DepartmentServicesImpl implements IDepartmentService {
 		return departmentMapper.selectByPrimaryKey(deptId);
 	}
 
+
 	@Override
 	public List<Department> getDepartmentUser() {
 		// TODO Auto-generated method stub
 		return departmentMapper.selectDepartmentUser();
 	}
 	
-	
+	@Override
+	public int insertDepartment(Department department) {
+		
+		return departmentMapper.insertSelective(department);
+	}
+
+	@Override
+	public int deleteDepartment(Department department) {
+		// TODO Auto-generated method stub
+		return departmentMapper.deleteByPrimaryKey(department.getDeptId());
+	}
+
+	@Override
+	public int updateDepartment(Department department) {
+		// TODO Auto-generated method stub
+		return departmentMapper.updateByPrimaryKey(department);
+	}
+
 
 }
