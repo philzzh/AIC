@@ -1,5 +1,7 @@
 package com.phil.aic.dao;
 
+import java.util.List;
+
 import com.phil.aic.bean.Account;
 
 public interface AccountMapper {
@@ -14,4 +16,6 @@ public interface AccountMapper {
     int updateAccountByPrimaryKeySelective(Account record);
 
     int updateByPrimaryKey(Account record);
+    
+    List<Account> selectAccountsByDeptId(int deptId);
 }

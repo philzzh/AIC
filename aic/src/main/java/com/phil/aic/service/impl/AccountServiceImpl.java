@@ -1,5 +1,7 @@
 package com.phil.aic.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -27,6 +29,13 @@ public class AccountServiceImpl implements IAccountService {
 		// TODO Auto-generated method stub
 		return this.accountMapper.updateAccountByPrimaryKeySelective(account);
 		
+	}
+
+
+	@Override
+	public List<Account> getAccountsByDeptId(int deptId) {
+		// TODO Auto-generated method stub
+		return this.accountMapper.selectAccountsByDeptId(deptId);
 	}
 
 

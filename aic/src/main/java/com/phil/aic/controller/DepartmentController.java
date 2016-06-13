@@ -19,13 +19,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.phil.aic.bean.Account;
 import com.phil.aic.bean.Department;
+import com.phil.aic.dao.AccountMapper;
+import com.phil.aic.service.IAccountService;
 import com.phil.aic.service.IDepartmentService;
+import com.phil.aic.service.impl.AccountServiceImpl;
 
 @Controller
 @RequestMapping("/dept")
 public class DepartmentController {
 	@Resource
 	private IDepartmentService depertmentService;
+	
+	@Resource
+	private IAccountService accountService;
 	
 	@RequestMapping("/getDeptUser")
 	public String getDeptUser(HttpServletRequest request,Model model){
@@ -45,10 +51,11 @@ public class DepartmentController {
     }  
 	
 	@RequestMapping("/toDeptPage")
-	public String addDept(Department department) throws IOException{
+	public String addDept(Department department,Model model) throws IOException{
 		/*if(department.getDeptId()) {
 			
 		}*/
+		model.addAttribute(department);
 		return "departmentEdit";
 	}
 	
@@ -66,9 +73,14 @@ public class DepartmentController {
 	public String deleteDept(Department department,HttpServletResponse response) throws IOException{
 //		int userId = 1;//Integer.parseInt(request.getParameter("id"));
 		PrintWriter s = response.getWriter();
-		int result = this.depertmentService.deleteDepartment(department);
-//		model.addAttribute("user", user);
-		s.print(result);
+		if(accountService.getAccountsByDeptId(department.getDeptId()).isEmpty()){
+			int result = this.depertmentService.deleteDepartment(department);
+	//		model.addAttribute("user", user);
+			s.print(result);
+		}
+		else {
+			s.print(-1);
+		}
 		return null;
 	}
 	

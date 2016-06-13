@@ -44,17 +44,21 @@
 		/*$(function(){
 			getDeptUserJson();
 		})*/
-		function treeAction(url,data) {
+		function treeAction(url,param) {
 			
 			$.ajax({  
 	            type:"POST",   //http请求方式  
 	            url:url, //发送给服务器的url  "<%=request.getContextPath()%>/dept/getDeptUserJson"
-	            //data:data, //发送给服务器的参数  
+	            data:param, //发送给服务器的参数  
 	            //dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
 	            success:function(data){  
 	            //	alert(data);
-	            	$('#tt').loadData(data);
-                      
+		            if(data==-1) {
+		            	alert("该部门下有用户，部门不可删除！");
+		            }
+		            else{
+		            	$('#tt').loadData(data);
+		            } 
                 },  
                 error:function(e) {  
                     alert("出错：请联系管理员！");  
@@ -70,21 +74,18 @@
 			var data;
 			if(type==3) {
 				//treeAction("<%=request.getContextPath()%>/dept/deleteD");
-				alert(type);
 				if(t.tree('isLeaf',node.target)){
-					alert(node.id);
 					data = {accountId:node.target.id};
 					//treeAction("<%=request.getContextPath()%>/account/deleteAccount");
 					return;
 				}
 				else  {
-					alert(node.id);
 					/* var obj = {};  
 				    obj.name="Pandy";  
 				    obj.email="test@163.com";  
 				    var param = JSON.stringify(obj); */  
-					data = {deptId:node.target.id};
-					//treeAction("<%=request.getContextPath()%>/dept/deleteDept");
+					data = {deptId:node.id};
+					treeAction("<%=request.getContextPath()%>/dept/deleteDept",data);
 					return;
 				}
 			}

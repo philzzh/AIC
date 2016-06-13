@@ -9,7 +9,7 @@ public interface IDepartmentService {
 	
 	public Department getDepartmentById(int deptId);
 	
-	List<Department> getDepartmentUser();
+	public List<Department> getDepartmentUser();
 	
 	public int insertDepartment(Department department);
 	

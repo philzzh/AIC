@@ -18,6 +18,12 @@
     from account
     where account_id = #{accountId,jdbcType=VARCHAR}
   </select>
+  <select id="selectAccountsByDeptId" parameterType="java.lang.Integer" resultMap="AccountResultMap">
+    select 
+    <include refid="Account_Base_Column_List" />
+    from account
+    where dept_id = #{deptId,jdbcType=INTEGER}
+  </select>
   <delete id="deleteAccountByPrimaryKey" parameterType="java.lang.String">
     delete from account
     where account_id = #{accountId,jdbcType=VARCHAR}
@@ -34,7 +40,7 @@
     insert into account
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="accountId != null">
-        account,
+        accountId,
       </if>
       <if test="password != null">
         password,
