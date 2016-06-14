@@ -22,10 +22,16 @@
     dept_id, dept_name
   </sql>
   <select id="selectDepartmentUser" resultMap="DeptUserResultMap">
+    <!--
     select 
     department.dept_id, dept_name,account_id,account_name,tel,password,is_leader
     from department,account
     where department.dept_id = account.dept_id
+    -->
+    select 
+    department.dept_id, dept_name,account_id,account_name,tel,password,is_leader
+    from department  left join account
+    on department.dept_id = account.dept_id
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

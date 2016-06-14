@@ -44,6 +44,34 @@
 		/*$(function(){
 			getDeptUserJson();
 		})*/
+function refreshTree() {
+			
+	 $('#tt').tree({  
+		    url: "<%=request.getContextPath()%>/dept/getDeptUserJson",  
+		    loadFilter: function(data){  
+		        if (data.d){  
+		            return data.d;  
+		        } else {  
+		            return data;  
+		        }  
+		    }  
+		}); 
+			
+			/*$.ajax({  
+	            type:"POST",   //http请求方式  
+	            url:"<%=request.getContextPath()%>/dept/getDeptUserJson",
+	            //data:param, //发送给服务器的参数  
+	            //dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
+	            success:function(data){  
+	               alert(data);
+		           $('#tt').loadData(data);
+                },  
+                error:function(e) {  
+                	$.messager.alert("提示", "出错：请联系管理员！","error");  // alert("出错：请联系管理员！");  
+                }  
+	        }); */
+		}
+		
 		function treeAction(url,param) {
 			
 			$.ajax({  
@@ -54,14 +82,16 @@
 	            success:function(data){  
 	            //	alert(data);
 		            if(data==-1) {
-		            	alert("该部门下有用户，部门不可删除！");
+		            	$.messager.alert("提示", "该部门下有用户，部门不可删除！","error");  //alert("该部门下有用户，部门不可删除！");
 		            }
 		            else{
-		            	$('#tt').loadData(data);
+		            	$.messager.alert("提示", "部门已删除！","info"); 
+		            	refreshTree();
+		            	//$('#tt').loadData(data);
 		            } 
                 },  
                 error:function(e) {  
-                    alert("出错：请联系管理员！");  
+                	$.messager.alert("提示", "出错：请联系管理员！","error");  // alert("出错：请联系管理员！");  
                 }  
 	        }); 
 		}
@@ -73,21 +103,30 @@
 			var url;
 			var data;
 			if(type==3) {
-				//treeAction("<%=request.getContextPath()%>/dept/deleteD");
-				if(t.tree('isLeaf',node.target)){
-					data = {accountId:node.target.id};
-					//treeAction("<%=request.getContextPath()%>/account/deleteAccount");
-					return;
-				}
-				else  {
-					/* var obj = {};  
-				    obj.name="Pandy";  
-				    obj.email="test@163.com";  
-				    var param = JSON.stringify(obj); */  
-					data = {deptId:node.id};
-					treeAction("<%=request.getContextPath()%>/dept/deleteDept",data);
-					return;
-				}
+				$.messager.confirm("操作提示", "您确定要执行操作吗？", function (data) {
+		            if (data) { 
+		            	//treeAction("<%=request.getContextPath()%>/dept/deleteD");
+						if(t.tree('isLeaf',node.target)){
+							data = {accountId:node.target.id};
+							//treeAction("<%=request.getContextPath()%>/account/deleteAccount");
+							return;
+						}
+						else  {
+							/* var obj = {};  
+						    obj.name="Pandy";  
+						    obj.email="test@163.com";  
+						    var param = JSON.stringify(obj); */  
+							data = {deptId:node.id};
+							treeAction("<%=request.getContextPath()%>/dept/deleteDept",data);
+							return;
+						}
+		            }  
+		            else {  
+		                return;  
+		            }  
+		       });
+				return;
+				
 			}
 			if(type==1){
 				if(t.tree('isLeaf',node.target)){
@@ -96,7 +135,8 @@
 				}
 				else  {
 					subtitle="新增部门";
-					url="<%=request.getContextPath()%>/dept/addDept";
+					data = {deptId:node.id};
+					url="<%=request.getContextPath()%>/dept/toDeptPage";
 				}
 			}
 			if(type==2){
@@ -109,10 +149,10 @@
 					url="<%=request.getContextPath()%>/dept/updateDept";
 				}
 			}
-			showDialog(subtitle,url,width,height);
+			showDialog(subtitle,url,width,height,data);
 		}
 		
-		function showDialog(subtitle,url,width,height) {
+		function showDialog(subtitle,url,width,height,data) {
 			/* var t = $('#tt');
 			var node = t.tree('getSelected');
 			
@@ -126,13 +166,42 @@
 							closed: false,
 							cache: false,
 							href: url,
-							modal: true/*,
+							modal: true,
+							onLoad:function(){
+								//$('#deptId').val(data.deptId); 编辑时用
+								//alert(data.deptId);
+							},
+		                    onClose : function() {
+		                    	$('#dd').dialog('destroy');
+		                    },buttons : [ {
+		                        text : '保存',
+		                        iconCls : 'icon-ok',
+		                        handler : function() {
+		                            //提交表单
+		                            submitForm();
+		                            refreshTree();
+		                            $('#dd').dialog('destroy');
+		                            
+		                        }
+		                    }, {
+		                        text : '取消',
+		                        iconCls : 'icon-cancel',
+		                        handler : function() {
+		                        	$('#dd').dialog('destroy');
+		                        }
+		                    } ]
+			/*,
 							toolbar:[{
 								text:'save',
 								iconCls:'icon-edit',
 								handler:function(){alert('edit')}
 							}]*/
 						});
+			
+		}
+		
+		function d_close(){
+			$('#dd').dialog('close');
 		}
 		
 		function append(){

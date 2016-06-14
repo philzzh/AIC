@@ -115,7 +115,8 @@ public class DepartmentController {
 	    		 node.put(ID, dept.getDeptId());
 	    		 node.put(TEXT,dept.getDeptName());
 	    		 List<Account> accounts = dept.getAccounts();
-	    		 if(accounts != null && accounts.size() > 0) {
+	    		 //返回accounts左外连接后大小为1，其中Account中各项除了deptId都为null，所以加上左后一个判断
+	    		 if(accounts != null && accounts.size() > 0&&accounts.get(0).getAccountId()!= null) {
 	    			 List<HashMap> childrens = new ArrayList<HashMap>();
 	    			 //for (int j = 0; j < accounts.size(); i++) {
 	    			 for(Account account : accounts){

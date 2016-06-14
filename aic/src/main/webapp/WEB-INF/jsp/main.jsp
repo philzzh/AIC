@@ -265,7 +265,7 @@ function addTabAction(subtitle) {
         	addTabContent(subtitle,data);
         },  
         error:function(e) {  
-            alert("出错：请联系管理员！");  
+        	$.messager.alert("提示", "出错：请联系管理员！","error");  //alert("出错：请联系管理员！");  
         }  
     });  
 }

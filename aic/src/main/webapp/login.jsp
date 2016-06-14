@@ -123,12 +123,12 @@
 		            success:function(data){  
 		            //	alert(data);
 		            	if(data=="0") {
-		            		alert("用户不存在！");
+		            		$.messager.alert("提示", "用户不存在！","error");  //alert("用户不存在！");
 		            		//$("#accountId").invalidMessage = "用户不存在！";
 		            		return false;	
 		            	}
 		            	if(data=="1"){
-		            		alert("密码错误！");
+		            		$.messager.alert("提示", "密码错误！","error");  //alert("密码错误！");
 		            		return false;
 		            	}
 		            	if(data=="2"){
@@ -138,7 +138,7 @@
 	                      
 	                },  
 	                error:function(e) {  
-	                    alert("出错：请联系管理员！");  
+	                	$.messager.alert("提示", "出错：请联系管理员！","error");  //alert("出错：请联系管理员！");  
 	                }  
 		        });  
 			}

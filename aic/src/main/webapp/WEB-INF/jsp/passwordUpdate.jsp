@@ -67,18 +67,18 @@
 		           // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
 		            success:function(data){  
 		            	if(data==1) {
-		            		alert("修改成功！");
+		            		$.messager.alert("提示", "修改成功！","info");//alert("修改成功！");
 		            		$('#ff').form('clear');
 		            	}
 		            	else if(data==-1){
-		            		alert("原密码不正确！");
+		            		$.messager.alert("提示", "原密码不正确！","error");//alert("原密码不正确！");
 		            	}
 		            	
 		            	return false;	
 	                      
 	                },  
 	                error:function(e) {  
-	                    alert("出错：请联系管理员！");  
+	                	$.messager.alert("提示", "出错：请联系管理员！","error");  //alert("出错：请联系管理员！");  
 	                }  
 		        }); 
 			}
