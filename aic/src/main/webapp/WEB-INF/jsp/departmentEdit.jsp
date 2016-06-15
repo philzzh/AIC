@@ -10,7 +10,6 @@
 	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
-	
 	<div style="margin:20px 0;"></div>
 	<div class="easyui-panel" title="" style="width:400px" >
 		<div style="padding:10px 60px 20px 60px" align='center'>
@@ -40,12 +39,12 @@
 			var data = $("#ff").serializeArray();   
 	        $.ajax({  
 	            type:"POST",   //http请求方式  
-	            url:"<%=request.getContextPath()%>/dept/addDept", //发送给服务器的url  
+	            url:"<%=request.getContextPath()%>/dept/editDept", //发送给服务器的url  
 	            data:data, //发送给服务器的参数  
 	           // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
 	            success:function(data){  
 	            	//if(data==1) {
-	            		$.messager.alert("提示", "增加成功！","info");//alert("修改成功！");
+	            		$.messager.alert("提示", "成功！","info");//alert("修改成功！");
 	            	/*}
 	            	else if(data==-1){
 	            		$.messager.alert("提示", "原密码不正确！","error");//alert("原密码不正确！");

@@ -39,6 +39,22 @@ public class AccountServiceImpl implements IAccountService {
 	}
 
 
+	@Override
+	public int deleteAccountByPrimaryKey(String accountId) {
+		// TODO Auto-generated method stub
+		return this.accountMapper.deleteAccountByPrimaryKey(accountId);
+	}
+
+
+	@Override
+	public int insertAccount(Account account) {
+		// TODO Auto-generated method stub
+		return this.accountMapper.insertSelectiveAccount(account);
+	}
+
+
+
+
 	/*public String match(Account account) {
 		// TODO Auto-generated method stub
 		

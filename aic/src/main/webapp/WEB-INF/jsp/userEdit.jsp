@@ -3,11 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>用户管理</title>
-	<link rel="stylesheet" type="text/css" href="../../themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../../themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="../demo.css">
-	<script type="text/javascript" src="../../jquery.min.js"></script>
-	<script type="text/javascript" src="../../jquery.easyui.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="../easyui/demo.css">
+	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
 </head>
 <body>
 
@@ -28,6 +28,17 @@
 							<td>用户名：</td>
 							<td>
 								<input class="easyui-textbox" style="width:200px;" type="text" name="name" data-options="" value=""></input>
+							</td>
+						</tr>
+						<tr>
+							<td>密码：</td>
+							<td>
+								<input class="easyui-textbox" style="width:200px;" type="text" name="name" data-options="" value=""></input>
+							</td>
+						
+							<td>是否领导：</td>
+							<td>
+								<input class="easyui-checkbox" style="width:200px;" type="text"name="name" data-options="" value=""></input>
 							</td>
 						</tr>
 						<tr>

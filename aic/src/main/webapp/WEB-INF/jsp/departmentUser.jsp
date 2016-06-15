@@ -31,16 +31,43 @@
 				}
 			"></ul>
 	</div>
-	<div id="mm" class="easyui-menu" style="width:120px;">
-		<div onclick="menuAction(1,415,230)" data-options="iconCls:'icon-add'">增加</div>
+	<div id="mm" class="easyui-menu" style="width:120px;" data-options="onShow:menuShow">
+		<div id="menu-add" onclick="menuAction(1,415,230)" data-options="iconCls:'icon-add'">增加</div>
 		<div class="menu-sep"></div>
-		<div onclick="menuAction(3,0,0)" data-options="iconCls:'icon-remove'">删除</div>
-		<div onclick="menuAction(2,615,230)" data-options="iconCls:'icon-edit'">修改</div>
+		<div id="menu-delete" onclick="menuAction(3,0,0)" data-options="iconCls:'icon-remove'">删除</div>
+		<div id="menu-update" onclick="menuAction(2,615,230)" data-options="iconCls:'icon-edit'">修改</div>
 		<!--<div onclick="collapse()">Collapse</div>-->
 	</div>
 	<div id="dd"></div>
 	<script type="text/javascript">
-
+	function menuShow() {  
+		var t = $('#tt');
+		var m = $('#mm');
+		var node = t.tree('getSelected');
+//		m.menu('onShow',function () {
+		if(node.id=='0') {
+			m.menu('disableItem',$('#menu-add'));
+			m.menu('disableItem',$('#menu-delete'));
+			m.menu('disableItem',$('#menu-update'));
+			return;
+		}
+		else if(node.id==''){
+			m.menu('enableItem',$('#menu-add'));
+			m.menu('disableItem',$('#menu-delete'));
+			m.menu('disableItem',$('#menu-update'));
+			return;
+		}else {
+			alert('other');
+			m.menu('enableItem',$('#menu-add'));
+			m.menu('enableItem',$('#menu-delete'));
+			m.menu('enableItem',$('#menu-update'));
+			return;
+		}
+//		});
+		
+		
+		
+	}
 		/*$(function(){
 			getDeptUserJson();
 		})*/
@@ -97,17 +124,22 @@ function refreshTree() {
 		}
 		
 		function menuAction(type,width,height) {
+			
 			var t = $('#tt');
 			var node = t.tree('getSelected');
+			
 			var subtitle;
 			var url;
 			var data;
 			if(type==3) {
+				if ( $('#mm').menu("getItem", $('#menu-delete')).disabled){
+					return;
+				}
 				$.messager.confirm("操作提示", "您确定要执行操作吗？", function (data) {
 		            if (data) { 
 		            	//treeAction("<%=request.getContextPath()%>/dept/deleteD");
 						if(t.tree('isLeaf',node.target)){
-							data = {accountId:node.target.id};
+							data = {accountId:node.id};
 							//treeAction("<%=request.getContextPath()%>/account/deleteAccount");
 							return;
 						}
@@ -129,24 +161,30 @@ function refreshTree() {
 				
 			}
 			if(type==1){
+				if ( $('#mm').menu("getItem", $('#menu-add')).disabled){
+					return;
+				}
 				if(t.tree('isLeaf',node.target)){
 					subtitle="新增用户";
 					url="<%=request.getContextPath()%>/account/addAccount";
 				}
 				else  {
 					subtitle="新增部门";
-					data = {deptId:node.id};
 					url="<%=request.getContextPath()%>/dept/toDeptPage";
 				}
 			}
 			if(type==2){
-				if(!t.tree('isLeaf',node.target)) {
+				if ( $('#mm').menu("getItem", $('#menu-update')).disabled){
+					return;
+				}
+				if(t.tree('isLeaf',node.target)) {
 					subtitle="编辑用户";
 					url="<%=request.getContextPath()%>/account/updateAccount";
 				}
 				else{
 					subtitle="编辑部门";
-					url="<%=request.getContextPath()%>/dept/updateDept";
+					data = {deptId:node.id,deptName:node.text};
+					url="<%=request.getContextPath()%>/dept/toDeptPage";
 				}
 			}
 			showDialog(subtitle,url,width,height,data);
@@ -168,11 +206,12 @@ function refreshTree() {
 							href: url,
 							modal: true,
 							onLoad:function(){
-								//$('#deptId').val(data.deptId); 编辑时用
+								$('#deptId').val(data.deptId); //编辑时用
+								$('#deptName').val(data.deptName);
 								//alert(data.deptId);
 							},
 		                    onClose : function() {
-		                    	$('#dd').dialog('destroy');
+		                    	$('#dd').dialog('close');
 		                    },buttons : [ {
 		                        text : '保存',
 		                        iconCls : 'icon-ok',
@@ -180,14 +219,13 @@ function refreshTree() {
 		                            //提交表单
 		                            submitForm();
 		                            refreshTree();
-		                            $('#dd').dialog('destroy');
-		                            
+		                            //$('#dd').dialog('close');
 		                        }
 		                    }, {
 		                        text : '取消',
 		                        iconCls : 'icon-cancel',
 		                        handler : function() {
-		                        	$('#dd').dialog('destroy');
+		                        	$('#dd').dialog('close');
 		                        }
 		                    } ]
 			/*,
@@ -199,10 +237,7 @@ function refreshTree() {
 						});
 			
 		}
-		
-		function d_close(){
-			$('#dd').dialog('close');
-		}
+
 		
 		function append(){
 			var t = $('#tt');

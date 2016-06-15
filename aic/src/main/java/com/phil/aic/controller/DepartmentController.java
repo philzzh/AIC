@@ -51,19 +51,24 @@ public class DepartmentController {
     }  
 	
 	@RequestMapping("/toDeptPage")
-	public String addDept(Department department,Model model) throws IOException{
+	public String toDept() throws IOException{
 		/*if(department.getDeptId()) {
 			
 		}*/
-		model.addAttribute(department);
 		return "departmentEdit";
 	}
 	
-	@RequestMapping("/addDept")
+	@RequestMapping("/editDept")
 	public String addDept(Department department,HttpServletResponse response) throws IOException{
 //		int userId = 1;//Integer.parseInt(request.getParameter("id"));
 		PrintWriter s = response.getWriter();
-		int result = this.depertmentService.insertDepartment(department);
+		int result;
+		if(department.getDeptId()==null) {
+			result = this.depertmentService.insertDepartment(department);
+		}
+		else {
+			result = this.depertmentService.updateDepartment(department);
+		}
 //		model.addAttribute("user", user);
 		s.print(result);
 		return null;
@@ -114,17 +119,26 @@ public class DepartmentController {
 	    		HashMap node = new HashMap();
 	    		 node.put(ID, dept.getDeptId());
 	    		 node.put(TEXT,dept.getDeptName());
+	    		 node.put(STATE, "closed");
 	    		 List<Account> accounts = dept.getAccounts();
 	    		 //返回accounts左外连接后大小为1，其中Account中各项除了deptId都为null，所以加上左后一个判断
-	    		 if(accounts != null && accounts.size() > 0&&accounts.get(0).getAccountId()!= null) {
+	    		
+	    		 if(accounts != null && accounts.size() > 0) {
 	    			 List<HashMap> childrens = new ArrayList<HashMap>();
 	    			 //for (int j = 0; j < accounts.size(); i++) {
-	    			 for(Account account : accounts){
-	    	    		 HashMap children = new HashMap();
-	    	    		 children.put(ID, account.getAccountId());
-	    	    		 children.put(TEXT,account.getAccountName());
-	    	    		 //children.put(STATE,"closed");
-	    	    		 childrens.add(children);
+	    			 if(accounts.get(0).getAccountId()!= null) {
+		    			 for(Account account : accounts){
+		    	    		 HashMap children = new HashMap();
+		    	    		 children.put(ID, account.getAccountId());
+		    	    		 children.put(TEXT,account.getAccountName());
+		    	    		 //children.put(STATE,"closed");
+		    	    		 childrens.add(children);
+		    			 }
+	    			 }else {
+	    				 HashMap children = new HashMap();
+	    				 children.put(ID, "");
+	    				 children.put(TEXT,"部门无人员，请添加！");
+	    				 childrens.add(children);
 	    			 }
 	    			 node.put(CHILDREN, childrens);
 	    		 }

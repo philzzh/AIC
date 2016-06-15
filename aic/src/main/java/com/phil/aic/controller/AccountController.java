@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.phil.aic.bean.Account;
+import com.phil.aic.bean.Department;
 import com.phil.aic.service.IAccountService;
 
 
@@ -99,5 +100,16 @@ public class AccountController {
 			s.print(-1);
 		}
 		return null;	
+	}
+	
+	@RequestMapping("/deleteAccount")
+	public String deleteAccount(Account account,HttpServletResponse response) throws IOException{
+//		int userId = 1;//Integer.parseInt(request.getParameter("id"));
+		PrintWriter s = response.getWriter();
+		int result = this.accountService.deleteAccountByPrimaryKey(account.getAccountId());
+	//	model.addAttribute("user", user);
+		s.print(result);
+		
+		return null;
 	}
 }

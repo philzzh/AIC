@@ -10,4 +10,6 @@ public interface IAccountService {
 	public Account getAccountByAccountId(String accountId);
 	public List<Account> getAccountsByDeptId(int deptId);
 	public int updateAccountByPrimaryKeySelective(Account account);
+	public int deleteAccountByPrimaryKey(String accountId);
+	public int insertAccount(Account account);
 }
