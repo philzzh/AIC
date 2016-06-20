@@ -60,7 +60,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="accountId != null">
-        #{account,jdbcType=VARCHAR},
+        #{accountId,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},

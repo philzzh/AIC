@@ -31,12 +31,24 @@
 				}
 			"></ul>
 	</div>
+	<!-- 
 	<div id="mm" class="easyui-menu" style="width:120px;" data-options="onShow:menuShow">
-		<div id="menu-add" onclick="menuAction(1,415,230)" data-options="iconCls:'icon-add'">增加</div>
+		<div id="menu-add" onclick="menuAction(1)" data-options="iconCls:'icon-add'">增加</div>
 		<div class="menu-sep"></div>
-		<div id="menu-delete" onclick="menuAction(3,0,0)" data-options="iconCls:'icon-remove'">删除</div>
-		<div id="menu-update" onclick="menuAction(2,615,230)" data-options="iconCls:'icon-edit'">修改</div>
-		<!--<div onclick="collapse()">Collapse</div>-->
+		<div id="menu-delete" onclick="menuAction(3)" data-options="iconCls:'icon-remove'">删除</div>
+		<div id="menu-update" onclick="menuAction(2)" data-options="iconCls:'icon-edit'">修改</div> 
+		
+	</div>
+	-->
+	<div id="mm" class="easyui-menu" style="width:120px;" data-options="onShow:menuShow">
+		<div id="menu-addAccount" onclick="menuAction(1)" data-options="iconCls:'icon-add'">增加用户</div>
+		<div id="menu-deleteAccount" onclick="menuAction(3)" data-options="iconCls:'icon-remove'">删除用户</div>
+		<div id="menu-updateAccount" onclick="menuAction(2)" data-options="iconCls:'icon-edit'">修改用户</div> 
+		
+		<div id="menu-addDept" onclick="menuAction(1)" data-options="iconCls:'icon-add'">增加部门</div>
+		<div id="menu-deleteDept" onclick="menuAction(3)" data-options="iconCls:'icon-remove'">删除部门</div>
+		<div id="menu-updateDept" onclick="menuAction(2)" data-options="iconCls:'icon-edit'">修改部门</div> 
+		
 	</div>
 	<div id="dd"></div>
 	<script type="text/javascript">
@@ -44,7 +56,48 @@
 		var t = $('#tt');
 		var m = $('#mm');
 		var node = t.tree('getSelected');
-//		m.menu('onShow',function () {
+		
+		if(t.tree('isLeaf',node.target)) {
+			m.menu('showItem',$('#menu-addAccount'));
+			m.menu('showItem',$('#menu-deleteAccount'));
+			m.menu('showItem',$('#menu-updateAccount'));
+			
+			m.menu('hideItem',$('#menu-addDept'));
+			m.menu('hideItem',$('#menu-deleteDept'));
+			m.menu('hideItem',$('#menu-updateDept'));
+			if(node.id==''){
+				m.menu('disableItem',$('#menu-deleteAccount'));
+				m.menu('disableItem',$('#menu-updateAccount'));
+				return;
+			}
+			m.menu('enableItem',$('#menu-addAccount'));
+			m.menu('enableItem',$('#menu-deleteAccount'));
+			m.menu('enableItem',$('#menu-updateAccount'));
+			return;
+		}
+		else {
+			m.menu('hideItem',$('#menu-addAccount'));
+			m.menu('hideItem',$('#menu-deleteAccount'));
+			m.menu('hideItem',$('#menu-updateAccount'));
+			
+			m.menu('showItem',$('#menu-addDept'));
+			m.menu('showItem',$('#menu-deleteDept'));
+			m.menu('showItem',$('#menu-updateDept'));
+			if(node.id=='0') {
+				m.menu('disableItem',$('#menu-deleteDept'));
+				m.menu('disableItem',$('#menu-updateDept'));
+				return;
+			}
+			m.menu('enableItem',$('#menu-addDept'));
+			m.menu('enableItem',$('#menu-deleteDept'));
+			m.menu('enableItem',$('#menu-updateDept'));
+			return;
+		}
+		
+		/*
+		var t = $('#tt');
+		var m = $('#mm');
+		var node = t.tree('getSelected');
 		if(node.id=='0') {
 			m.menu('disableItem',$('#menu-add'));
 			m.menu('disableItem',$('#menu-delete'));
@@ -57,80 +110,183 @@
 			m.menu('disableItem',$('#menu-update'));
 			return;
 		}else {
-			alert('other');
 			m.menu('enableItem',$('#menu-add'));
 			m.menu('enableItem',$('#menu-delete'));
 			m.menu('enableItem',$('#menu-update'));
 			return;
+		}*/
+	}
+	function addDept() {
+		subtitle="新增部门";
+		width=415;
+		height=180;
+		url="<%=request.getContextPath()%>/dept/toDeptPage";
+		showDialog(subtitle,url,width,height,data);
+	}
+	function deleteDept() {
+		if ( $('#mm').menu("getItem", $('#menu-deleteDept')).disabled){
+			return;
 		}
-//		});
+		$.messager.confirm("操作提示", "您确定要执行操作吗？", function (data) {
+            if (data) { 
+				data = {deptId:node.id};
+				treeAction("<%=request.getContextPath()%>/dept/deleteDept",data);
+				return;
+            }  
+            else {  
+                return;  
+            }  
+       });
 		
+	}
+	function updateDept() {
 		
+	}
+	function addAccount() {
 		
+	}
+	function deleteAccount() {
+		if ( $('#mm').menu("getItem", $('#menu-deleteAccount')).disabled){
+			return;
+		}
+		$.messager.confirm("操作提示", "您确定要执行操作吗？", function (data) {
+            if (data) { 
+				data = {accountId:node.id};
+				treeAction("<%=request.getContextPath()%>/account/deleteAccount");
+				return;
+            }  
+            else {  
+                return;  
+            }  
+       });
+	}
+	function updateAccount() {
+		if ( $('#mm').menu("getItem", $('#menu-add')).disabled){
+			return;
+		}
+	}
+	function TmenuAction(type) {
+		
+		var t = $('#tt');
+		var node = t.tree('getSelected');
+		var subtitle;
+		var url;
+		var data;
+		var width,height;
+		if(type==3) {
+			if ( $('#mm').menu("getItem", $('#menu-delete')).disabled){
+				return;
+			}
+			$.messager.confirm("操作提示", "您确定要执行操作吗？", function (data) {
+	            if (data) { 
+	            	//treeAction("<%=request.getContextPath()%>/dept/deleteD");
+					if(t.tree('isLeaf',node.target)){
+						data = {accountId:node.id};
+						//treeAction("<%=request.getContextPath()%>/account/deleteAccount");
+						return;
+					}
+					else  {
+						/* var obj = {};  
+					    obj.name="Pandy";  
+					    obj.email="test@163.com";  
+					    var param = JSON.stringify(obj); */  
+						data = {deptId:node.id};
+						treeAction("<%=request.getContextPath()%>/dept/deleteDept",data);
+						return;
+					}
+	            }  
+	            else {  
+	                return;  
+	            }  
+	       });
+			return;
+			
+		}
+		if(type==1){
+			if ( $('#mm').menu("getItem", $('#menu-add')).disabled){
+				return;
+			}
+			if(t.tree('isLeaf',node.target)){
+				subtitle="新增用户";
+				width=615;
+				height=280;
+				url="<%=request.getContextPath()%>/account/toAccountPage";
+			}
+			else  {
+				subtitle="新增部门";
+				width=415;
+				height=180;
+				url="<%=request.getContextPath()%>/dept/toDeptPage";
+			}
+		}
+		if(type==2){
+			if ( $('#mm').menu("getItem", $('#menu-update')).disabled){
+				return;
+			}
+			if(t.tree('isLeaf',node.target)) {
+				subtitle="编辑用户";
+				width=615;
+				height=280;
+				url="<%=request.getContextPath()%>/account/toAccountPage";
+			}
+			else{
+				subtitle="编辑部门";
+				width=415;
+				height=180;
+				data = {deptId:node.id,deptName:node.text};
+				url="<%=request.getContextPath()%>/dept/toDeptPage";
+			}
+		}
+		showDialog(subtitle,url,width,height,data);
 	}
 		/*$(function(){
 			getDeptUserJson();
 		})*/
-function refreshTree() {
-			
-	 $('#tt').tree({  
+	function refreshTree() {
+		$('#tt').tree({  
 		    url: "<%=request.getContextPath()%>/dept/getDeptUserJson",  
 		    loadFilter: function(data){  
-		        if (data.d){  
-		            return data.d;  
-		        } else {  
-		            return data;  
-		        }  
+		       if (data.d){  
+		           return data.d;  
+		       } else {  
+		           return data;  
+		       }  
 		    }  
 		}); 
-			
-			/*$.ajax({  
-	            type:"POST",   //http请求方式  
-	            url:"<%=request.getContextPath()%>/dept/getDeptUserJson",
-	            //data:param, //发送给服务器的参数  
-	            //dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
-	            success:function(data){  
-	               alert(data);
-		           $('#tt').loadData(data);
-                },  
-                error:function(e) {  
-                	$.messager.alert("提示", "出错：请联系管理员！","error");  // alert("出错：请联系管理员！");  
-                }  
-	        }); */
-		}
+	}
 		
-		function treeAction(url,param) {
-			
-			$.ajax({  
-	            type:"POST",   //http请求方式  
-	            url:url, //发送给服务器的url  "<%=request.getContextPath()%>/dept/getDeptUserJson"
-	            data:param, //发送给服务器的参数  
-	            //dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
-	            success:function(data){  
-	            //	alert(data);
-		            if(data==-1) {
-		            	$.messager.alert("提示", "该部门下有用户，部门不可删除！","error");  //alert("该部门下有用户，部门不可删除！");
-		            }
-		            else{
-		            	$.messager.alert("提示", "部门已删除！","info"); 
-		            	refreshTree();
-		            	//$('#tt').loadData(data);
-		            } 
-                },  
-                error:function(e) {  
-                	$.messager.alert("提示", "出错：请联系管理员！","error");  // alert("出错：请联系管理员！");  
-                }  
-	        }); 
-		}
+	function treeAction(url,param) {
 		
-		function menuAction(type,width,height) {
+		$.ajax({  
+            type:"POST",   //http请求方式  
+            url:url, //发送给服务器的url  "<%=request.getContextPath()%>/dept/getDeptUserJson"
+            data:param, //发送给服务器的参数  
+            //dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
+            success:function(data){  
+            //	alert(data);
+	            if(data==-1) {
+	            	$.messager.alert("提示", "该部门下有用户，部门不可删除！","error");  //alert("该部门下有用户，部门不可删除！");
+	            }
+	            else{
+	            	$.messager.alert("提示", "部门已删除！","info"); 
+	            	refreshTree();
+	            	//$('#tt').loadData(data);
+	            } 
+             },  
+             error:function(e) {  
+             	$.messager.alert("提示", "出错：请联系管理员！","error");  // alert("出错：请联系管理员！");  
+             }  
+        }); 
+	}
+		
+		function menuAction(type) {
 			
 			var t = $('#tt');
 			var node = t.tree('getSelected');
-			
 			var subtitle;
 			var url;
 			var data;
+			var width,height;
 			if(type==3) {
 				if ( $('#mm').menu("getItem", $('#menu-delete')).disabled){
 					return;
@@ -166,10 +322,15 @@ function refreshTree() {
 				}
 				if(t.tree('isLeaf',node.target)){
 					subtitle="新增用户";
-					url="<%=request.getContextPath()%>/account/addAccount";
+					width=615;
+					height=280;
+					data = {accountId:''};
+					url="<%=request.getContextPath()%>/account/toAccountPage";
 				}
 				else  {
 					subtitle="新增部门";
+					width=415;
+					height=180;
 					url="<%=request.getContextPath()%>/dept/toDeptPage";
 				}
 			}
@@ -179,10 +340,15 @@ function refreshTree() {
 				}
 				if(t.tree('isLeaf',node.target)) {
 					subtitle="编辑用户";
-					url="<%=request.getContextPath()%>/account/updateAccount";
+					width=615;
+					height=280;
+					data = {accountId:node.id,accountName:node.text};
+					url="<%=request.getContextPath()%>/account/toAccountPage";
 				}
 				else{
 					subtitle="编辑部门";
+					width=415;
+					height=180;
 					data = {deptId:node.id,deptName:node.text};
 					url="<%=request.getContextPath()%>/dept/toDeptPage";
 				}
@@ -208,7 +374,7 @@ function refreshTree() {
 							onLoad:function(){
 								$('#deptId').val(data.deptId); //编辑时用
 								$('#deptName').val(data.deptName);
-								//alert(data.deptId);
+								$('#flag').val(data.accountId);
 							},
 		                    onClose : function() {
 		                    	$('#dd').dialog('close');

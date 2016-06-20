@@ -81,10 +81,7 @@ public class AccountController {
 		}
 			return "passwordUpdate";
 	}
-	@RequestMapping(value = "/toUpdateAccount")
-	public String toUpdateAccount(HttpServletRequest request){
-			return "userEdit";
-	}
+
 	@RequestMapping("/updatePwd")
 	public String updatePwd(Model model,HttpServletRequest request,HttpServletResponse response) throws IOException {
 		PrintWriter s = response.getWriter();
@@ -110,6 +107,51 @@ public class AccountController {
 	//	model.addAttribute("user", user);
 		s.print(result);
 		
+		return null;
+	}
+	
+	@RequestMapping("/toAccountPage")
+	public String toAccountPage() throws IOException{
+		/*if(department.getDeptId()) {
+			
+		}*/
+		return "userEdit";
+	}
+	
+	@RequestMapping("/editAccount")
+	public String editAccount(Account account,HttpServletResponse response) throws IOException{
+//		int userId = 1;//Integer.parseInt(request.getParameter("id"));
+		PrintWriter s = response.getWriter();
+		int result;
+//		String accountId = account.getAccountId();
+//		if(accountId==null||accountId=="") {
+//			if(this.accountService.getAccountByAccountId(accountId)!=null) {
+//				s.print(-1);
+//				return null;
+//			}
+//			result = this.accountService.insertAccount(account);
+//		}
+//		else {
+			result = this.accountService.updateAccountByPrimaryKeySelective(account);
+//		}
+//		model.addAttribute("user", user);
+		s.print(result);
+		return null;
+	}
+	@RequestMapping("/addAccount")
+	public String addAccount(Account account,HttpServletResponse response) throws IOException{
+//		int userId = 1;//Integer.parseInt(request.getParameter("id"));
+		PrintWriter s = response.getWriter();
+		int result;
+		String accountId = account.getAccountId();
+			if(this.accountService.getAccountByAccountId(accountId)!=null) {
+				s.print(-1);
+				return null;
+			}
+			result = this.accountService.insertAccount(account);
+		
+//		model.addAttribute("user", user);
+		s.print(result);
 		return null;
 	}
 }

@@ -49,7 +49,7 @@ public class AccountServiceImpl implements IAccountService {
 	@Override
 	public int insertAccount(Account account) {
 		// TODO Auto-generated method stub
-		return this.accountMapper.insertSelectiveAccount(account);
+		return this.accountMapper.insertAccount(account);
 	}
 
 

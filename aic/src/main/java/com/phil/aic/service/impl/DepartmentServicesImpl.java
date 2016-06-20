@@ -48,4 +48,11 @@ public class DepartmentServicesImpl implements IDepartmentService {
 	}
 
 
+	@Override
+	public List<Department> getDepartment() {
+		// TODO Auto-generated method stub
+		return departmentMapper.selectDepartment();
+	}
+
+
 }

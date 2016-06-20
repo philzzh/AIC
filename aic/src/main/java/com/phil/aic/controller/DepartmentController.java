@@ -42,13 +42,22 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping(value="/getDeptUserJson", method = RequestMethod.GET)  
-    public @ResponseBody List<HashMap> getShopInJSON() {  
+    public @ResponseBody List<HashMap> getDeptUserInJSON() {  
   
 		List<Department> deptUser = this.depertmentService.getDepartmentUser();  
           
         return formatTree(deptUser);  
   
     }  
+	
+	@RequestMapping(value="/getDeptJson", method = RequestMethod.GET)  
+    public @ResponseBody List<Department> getDeptInJSON() {  
+  
+		return this.depertmentService.getDepartment();  
+          
+          
+  
+    } 
 	
 	@RequestMapping("/toDeptPage")
 	public String toDept() throws IOException{
@@ -59,7 +68,7 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping("/editDept")
-	public String addDept(Department department,HttpServletResponse response) throws IOException{
+	public String editDept(Department department,HttpServletResponse response) throws IOException{
 //		int userId = 1;//Integer.parseInt(request.getParameter("id"));
 		PrintWriter s = response.getWriter();
 		int result;
