@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.phil.aic.dao.AccountMapper">
   <resultMap id="AccountResultMap" type="com.phil.aic.bean.Account">
-    <id column="account_id" jdbcType="VARCHAR" property="accountId" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="dept_id" jdbcType="INTEGER" property="deptId" />
-    <result column="is_leader" jdbcType="INTEGER" property="isLeader" />
-    <result column="tel" jdbcType="VARCHAR" property="tel" />
-    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <id column="account_id" property="accountId" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="is_leader" property="isLeader" jdbcType="INTEGER" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="account_name" property="accountName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Account_Base_Column_List">
     account_id, password, dept_id, is_leader, tel, account_name

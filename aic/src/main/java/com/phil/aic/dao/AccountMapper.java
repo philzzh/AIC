@@ -5,17 +5,17 @@ import java.util.List;
 import com.phil.aic.bean.Account;
 
 public interface AccountMapper {
-    int deleteAccountByPrimaryKey(String account);
+    int deleteAccountByPrimaryKey(String accountId);
 
-    int insertAccount(Account record);
+    int insertAccount(Account account);
 
-    int insertSelectiveAccount(Account record);
+    int insertSelectiveAccount(Account account);
 
-    Account selectAccountByPrimaryKey(String account);
+    Account selectAccountByPrimaryKey(String accountId);
 
-    int updateAccountByPrimaryKeySelective(Account record);
+    int updateAccountByPrimaryKeySelective(Account account);
 
-    int updateByPrimaryKey(Account record);
+    int updateByPrimaryKey(Account account);
     
     List<Account> selectAccountsByDeptId(int deptId);
 }

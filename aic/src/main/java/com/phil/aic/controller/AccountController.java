@@ -111,10 +111,14 @@ public class AccountController {
 	}
 	
 	@RequestMapping("/toAccountPage")
-	public String toAccountPage() throws IOException{
+	public String toAccountPage(HttpServletRequest request,Model model) throws IOException{
+		String accountId = request.getParameter("accountId");
+		Account account = this.accountService.getAccountByAccountId(accountId);
+		model.addAttribute(account);
 		/*if(department.getDeptId()) {
 			
 		}*/
+		
 		return "userEdit";
 	}
 	

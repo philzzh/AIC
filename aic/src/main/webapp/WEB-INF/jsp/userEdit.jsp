@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<%@ page language="Java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+	
+	<%
+	 request.setCharacterEncoding("UTF-8");
+	%>
 	<title>用户管理</title>
 	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
@@ -19,32 +24,32 @@
 						<tr>
 							<td>所属部门：</td>
 							<td>
-								<input id="deptId" class="easyui-combobox" name="deptId"
+								<input id="deptId" class="easyui-combobox" name="deptId" value="${account.deptId}"
     									data-options="url:'<%=request.getContextPath()%>/dept/getDeptJson',method: 'get',valueField:'deptId',textField:'deptName'">
 							</td>
 						
 							<td>姓名：</td>
 							<td>
-								<input class="easyui-textbox" style="width:200px;" type="text" id="accountName" name="accountName" data-options="" value=""></input>
+								<input class="easyui-validatebox textbox" value="${account.accountName}" style="width:200px;" type="text" id="accountName" name="accountName" missingMessage="请输入姓名." prompt="姓名" required="true"></input>
 							</td>
 						</tr>
 						<tr>
 							<td>用户名：</td>
 							<td>
-								<input class="easyui-textbox" style="width:200px;" type="text"  name="accountId" id="accountId" data-options="" value=""></input>
+								<input class="easyui-validatebox textbox" style="width:200px;" value="${account.accountId}" type="text"  name="accountId" id="accountId" missingMessage="请输入用户名." prompt="用户名" required="true"></input>
 							</td>
 							<td>密码：</td>
 							<td>
-								<input class="easyui-textbox" style="width:200px;" type="text" id="password" name="password" data-options="" value=""></input>
+								<input class="easyui-validatebox textbox" type="password" value="${account.password}" name="password" id="password" missingMessage="请输入密码." prompt="密码" required="true"></input>
 							</td>
 						<tr>
 							<td>电话：</td>
 							<td>
-								<input class="easyui-textbox" style="width:200px;" type="text"name="tel" id="tel"></input>
+								<input class="easyui-textbox" value="${account.tel}" style="width:200px;" type="text"name="tel" id="tel"></input>
 							</td>
 							<td>是否领导：</td>
 							<td>
-								<input style="width:200px;" type="checkbox" id="isLeader" name="isLeader" value="1"></input>
+								<input style="width:200px;" type="checkbox" id="isLeader" name="isLeader" value="1" checked="${account.isLeader}==1:true:false"></input>
 							</td>
 						</tr>
 						</tr>

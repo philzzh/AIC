@@ -66,8 +66,8 @@
 			m.menu('hideItem',$('#menu-deleteDept'));
 			m.menu('hideItem',$('#menu-updateDept'));
 			if(node.id==''){
-				m.menu('disableItem',$('#menu-deleteAccount'));
-				m.menu('disableItem',$('#menu-updateAccount'));
+				m.menu('hideItem',$('#menu-deleteAccount'));
+				m.menu('hideItem',$('#menu-updateAccount'));
 				return;
 			}
 			m.menu('enableItem',$('#menu-addAccount'));
@@ -84,8 +84,8 @@
 			m.menu('showItem',$('#menu-deleteDept'));
 			m.menu('showItem',$('#menu-updateDept'));
 			if(node.id=='0') {
-				m.menu('disableItem',$('#menu-deleteDept'));
-				m.menu('disableItem',$('#menu-updateDept'));
+				m.menu('hideItem',$('#menu-deleteDept'));
+				m.menu('hideItem',$('#menu-updateDept'));
 				return;
 			}
 			m.menu('enableItem',$('#menu-addDept'));
@@ -124,9 +124,9 @@
 		showDialog(subtitle,url,width,height,data);
 	}
 	function deleteDept() {
-		if ( $('#mm').menu("getItem", $('#menu-deleteDept')).disabled){
+		/* if ( $('#mm').menu("getItem", $('#menu-deleteDept')).disabled){
 			return;
-		}
+		} */
 		$.messager.confirm("操作提示", "您确定要执行操作吗？", function (data) {
             if (data) { 
 				data = {deptId:node.id};
@@ -342,8 +342,8 @@
 					subtitle="编辑用户";
 					width=615;
 					height=280;
-					data = {accountId:node.id,accountName:node.text};
-					url="<%=request.getContextPath()%>/account/toAccountPage";
+					data = {accountId:node.id};
+					url="<%=request.getContextPath()%>/account/toAccountPage?accountId="+node.id;
 				}
 				else{
 					subtitle="编辑部门";
