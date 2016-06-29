@@ -14,49 +14,6 @@
 	<link rel="stylesheet" type="text/css" href="../easyui/demo.css">
 	<script type="text/javascript" src="../easyui/jquery.min.js"></script>
 	<script type="text/javascript" src="../easyui/jquery.easyui.min.js"></script>
-	<!--<style type="text/css">
-        .easyui-accordion ul
-        {
-            list-style-type: none;
-            margin: 0px;
-            padding: 10px;
-        }
-        .easyui-accordion ul li
-        {
-            padding: 0px;
-        }
-        .easyui-accordion ul li a
-        {
-            line-height: 24px;
-        }
-        .easyui-accordion ul li div
-        {
-            margin: 2px 0px;
-            padding-left: 10px;
-            padding-top: 2px;
-        }
-        .easyui-accordion ul li div.hover
-        {
-            border: 1px dashed #99BBE8;
-            background: #E0ECFF;
-            cursor: pointer;
-        }
-        .easyui-accordion ul li div.hover a
-        {
-            color: #416AA3;
-        }
-        .easyui-accordion ul li div.selected
-        {
-            border: 1px solid #99BBE8;
-            background: #E0ECFF;
-            cursor: default;
-        }
-        .easyui-accordion ul li div.selected a
-        {
-            color: #416AA3;
-            font-weight: bold;
-        }
-    </style>-->
 </head>
 <body class="easyui-layout">
 	
@@ -73,7 +30,7 @@
 			<div class="easyui-accordion" data-options="fit:false,border:false,height:'content'">
 				<div title="案件管理" style="padding:10px;" data-options="iconCls:'icon-tip'">
 					<ul class="easyui-tree">
-							<li data-options="iconCls:'icon-ok'"><div><span href="#" onclick="addTab1('立案处理','case_init.html');">立案处理</span><div></li>
+							<li data-options="iconCls:'icon-ok'"><div><span href="#" onclick="addTab1('立案处理','<%=request.getContextPath()%>/case/toCaseInit');">立案处理</span><div></li>
 							<li data-options="iconCls:'icon-search'"><div><span href="#" onclick="addTab1('案件信息查询','case_search.html');">案件信息查询</span><div></li>
 					</ul>
 					
