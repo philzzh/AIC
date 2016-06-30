@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phil.aic.dao.BusinessMapper" >
+  <resultMap id="BaseResultMap" type="com.phil.aic.bean.Business" >
+    <id column="reg_id" property="regId" jdbcType="VARCHAR" />
+    <result column="business_name" property="businessName" jdbcType="VARCHAR" />
+    <result column="business_address" property="businessAddress" jdbcType="VARCHAR" />
+    <result column="manager_id" property="managerId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    reg_id, business_name, business_address, manager_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from business
+    where reg_id = #{regId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from business
+    where reg_id = #{regId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.phil.aic.bean.Business" >
+    insert into business (reg_id, business_name, business_address, 
+      manager_id)
+    values (#{regId,jdbcType=VARCHAR}, #{businessName,jdbcType=VARCHAR}, #{businessAddress,jdbcType=VARCHAR}, 
+      #{managerId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.phil.aic.bean.Business" >
+    insert into business
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="regId != null" >
+        reg_id,
+      </if>
+      <if test="businessName != null" >
+        business_name,
+      </if>
+      <if test="businessAddress != null" >
+        business_address,
+      </if>
+      <if test="managerId != null" >
+        manager_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="regId != null" >
+        #{regId,jdbcType=VARCHAR},
+      </if>
+      <if test="businessName != null" >
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddress != null" >
+        #{businessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null" >
+        #{managerId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phil.aic.bean.Business" >
+    update business
+    <set >
+      <if test="businessName != null" >
+        business_name = #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddress != null" >
+        business_address = #{businessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="managerId != null" >
+        manager_id = #{managerId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where reg_id = #{regId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phil.aic.bean.Business" >
+    update business
+    set business_name = #{businessName,jdbcType=VARCHAR},
+      business_address = #{businessAddress,jdbcType=VARCHAR},
+      manager_id = #{managerId,jdbcType=VARCHAR}
+    where reg_id = #{regId,jdbcType=VARCHAR}
+  </update>
+</mapper>

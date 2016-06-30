@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.phil.aic.dao.CaseMapper" >
+  <resultMap id="BaseResultMap" type="com.phil.aic.bean.Case" >
+    <id column="case_id" property="caseId" jdbcType="INTEGER" />
+    <result column="case_name" property="caseName" jdbcType="VARCHAR" />
+    <result column="case_type" property="caseType" jdbcType="VARCHAR" />
+    <result column="team_id" property="teamId" jdbcType="VARCHAR" />
+    <result column="misfeasor_id" property="misfeasorId" jdbcType="VARCHAR" />
+    <result column="case_address" property="caseAddress" jdbcType="VARCHAR" />
+    <result column="business_address" property="businessAddress" jdbcType="VARCHAR" />
+    <result column="illegal_time" property="illegalTime" jdbcType="TIMESTAMP" />
+    <result column="dept_id" property="deptId" jdbcType="INTEGER" />
+    <result column="fine" property="fine" jdbcType="INTEGER" />
+    <result column="cause" property="cause" jdbcType="VARCHAR" />
+    <result column="fact" property="fact" jdbcType="VARCHAR" />
+    <result column="evidence" property="evidence" jdbcType="VARCHAR" />
+    <result column="audit" property="audit" jdbcType="VARCHAR" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    case_id, case_name, case_type, team_id, misfeasor_id, case_address, business_address, 
+    illegal_time, dept_id, fine, cause, fact, evidence, audit, finish_time, remarks, 
+    create_by, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from `case`
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `case`
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.phil.aic.bean.Case" >
+    insert into `case` (case_id, case_name, case_type, 
+      team_id, misfeasor_id, case_address, 
+      business_address, illegal_time, dept_id, 
+      fine, cause, fact, 
+      evidence, audit, finish_time, 
+      remarks, create_by, create_time
+      )
+    values (#{caseId,jdbcType=INTEGER}, #{caseName,jdbcType=VARCHAR}, #{caseType,jdbcType=VARCHAR}, 
+      #{teamId,jdbcType=VARCHAR}, #{misfeasorId,jdbcType=VARCHAR}, #{caseAddress,jdbcType=VARCHAR}, 
+      #{businessAddress,jdbcType=VARCHAR}, #{illegalTime,jdbcType=TIMESTAMP}, #{deptId,jdbcType=INTEGER}, 
+      #{fine,jdbcType=INTEGER}, #{cause,jdbcType=VARCHAR}, #{fact,jdbcType=VARCHAR}, 
+      #{evidence,jdbcType=VARCHAR}, #{audit,jdbcType=VARCHAR}, #{finishTime,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.phil.aic.bean.Case" >
+    insert into `case`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseId != null" >
+        case_id,
+      </if>
+      <if test="caseName != null" >
+        case_name,
+      </if>
+      <if test="caseType != null" >
+        case_type,
+      </if>
+      <if test="teamId != null" >
+        team_id,
+      </if>
+      <if test="misfeasorId != null" >
+        misfeasor_id,
+      </if>
+      <if test="caseAddress != null" >
+        case_address,
+      </if>
+      <if test="businessAddress != null" >
+        business_address,
+      </if>
+      <if test="illegalTime != null" >
+        illegal_time,
+      </if>
+      <if test="deptId != null" >
+        dept_id,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="cause != null" >
+        cause,
+      </if>
+      <if test="fact != null" >
+        fact,
+      </if>
+      <if test="evidence != null" >
+        evidence,
+      </if>
+      <if test="audit != null" >
+        audit,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseId != null" >
+        #{caseId,jdbcType=INTEGER},
+      </if>
+      <if test="caseName != null" >
+        #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null" >
+        #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null" >
+        #{teamId,jdbcType=VARCHAR},
+      </if>
+      <if test="misfeasorId != null" >
+        #{misfeasorId,jdbcType=VARCHAR},
+      </if>
+      <if test="caseAddress != null" >
+        #{caseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddress != null" >
+        #{businessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalTime != null" >
+        #{illegalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=INTEGER},
+      </if>
+      <if test="cause != null" >
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="fact != null" >
+        #{fact,jdbcType=VARCHAR},
+      </if>
+      <if test="evidence != null" >
+        #{evidence,jdbcType=VARCHAR},
+      </if>
+      <if test="audit != null" >
+        #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+      <selectKey resultType="java.lang.Integer"  order="AFTER" keyProperty="caseId" >
+        SELECT LAST_INSERT_ID() AS ID   
+      </selectKey>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.phil.aic.bean.Case" >
+    update `case`
+    <set >
+      <if test="caseName != null" >
+        case_name = #{caseName,jdbcType=VARCHAR},
+      </if>
+      <if test="caseType != null" >
+        case_type = #{caseType,jdbcType=VARCHAR},
+      </if>
+      <if test="teamId != null" >
+        team_id = #{teamId,jdbcType=VARCHAR},
+      </if>
+      <if test="misfeasorId != null" >
+        misfeasor_id = #{misfeasorId,jdbcType=VARCHAR},
+      </if>
+      <if test="caseAddress != null" >
+        case_address = #{caseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="businessAddress != null" >
+        business_address = #{businessAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalTime != null" >
+        illegal_time = #{illegalTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deptId != null" >
+        dept_id = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine,jdbcType=INTEGER},
+      </if>
+      <if test="cause != null" >
+        cause = #{cause,jdbcType=VARCHAR},
+      </if>
+      <if test="fact != null" >
+        fact = #{fact,jdbcType=VARCHAR},
+      </if>
+      <if test="evidence != null" >
+        evidence = #{evidence,jdbcType=VARCHAR},
+      </if>
+      <if test="audit != null" >
+        audit = #{audit,jdbcType=VARCHAR},
+      </if>
+      <if test="finishTime != null" >
+        finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.phil.aic.bean.Case" >
+    update `case`
+    set case_name = #{caseName,jdbcType=VARCHAR},
+      case_type = #{caseType,jdbcType=VARCHAR},
+      team_id = #{teamId,jdbcType=VARCHAR},
+      misfeasor_id = #{misfeasorId,jdbcType=VARCHAR},
+      case_address = #{caseAddress,jdbcType=VARCHAR},
+      business_address = #{businessAddress,jdbcType=VARCHAR},
+      illegal_time = #{illegalTime,jdbcType=TIMESTAMP},
+      dept_id = #{deptId,jdbcType=INTEGER},
+      fine = #{fine,jdbcType=INTEGER},
+      cause = #{cause,jdbcType=VARCHAR},
+      fact = #{fact,jdbcType=VARCHAR},
+      evidence = #{evidence,jdbcType=VARCHAR},
+      audit = #{audit,jdbcType=VARCHAR},
+      finish_time = #{finishTime,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where case_id = #{caseId,jdbcType=INTEGER}
+  </update>
+</mapper>
