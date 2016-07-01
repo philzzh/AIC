@@ -35,9 +35,12 @@ public class CaseController {
 		Schedule schedule = new Schedule();
 		case_.setCaseName(request.getParameter("caseName"));
 		case_.setCaseType(request.getParameter("caseType"));
-		result = caseService.insertCase(case_);
-		s.print(result);
+		case_.setRemarks(request.getParameter("remarks"));
+		schedule.setReciver(request.getParameter("receiver"));
 		schedule.setSender(request.getParameter("caseType"));
+		result = caseService.insertCaseAndSchedule(case_,schedule);
+		
+		s.print(result);
 		return null;
 	}
 	

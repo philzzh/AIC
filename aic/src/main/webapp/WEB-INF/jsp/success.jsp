@@ -7,7 +7,7 @@
 	 request.setCharacterEncoding("UTF-8");
 	%>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-	<title>案件初始化</title>
+	<title>成功</title>
 	<link rel="stylesheet" type="text/css" href="../easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="../easyui/themes/icon.css">
 	<link rel="stylesheet" type="text/css" href="../easyui/demo.css">
@@ -38,33 +38,33 @@
 							animate:true,
 							checkbox:true,
 							        onCheck: function(node){
-							        	$('#receiver').combobox('clear');
+							        	$('#reciver').combobox('clear');
 							       		 setComboVaules();
 							        	//$.parseJSON($('#tt').tree('getChecked'))
 							        	//alert(getChecked());
 							        	//var isLeaf = $('#tt').tree('isLeaf', node.target);
 							        	//alert(isLeaf);  
 							        	//var nodes = $('#tt').tree('getChecked', ['checked','indeterminate']);
-							            //$('#receiver').combobox('loadData',nodes);
+							            //$('#reciver').combobox('loadData',nodes);
         }"></ul>
 					</div>
 					</td>
 	    		</tr>
 				<tr>
 	    			<td>备注:</td>
-	    			<td colspan="3"><input class="easyui-textbox" style="width:800px;height:120px;" id="remarks" name="remarks" data-options="multiline:true"></input></td>
+	    			<td colspan="3"><input class="easyui-textbox" style="width:800px;height:120px;" id="remark" name="remark" data-options="multiline:true"></input></td>
 	    		</tr>
 	    		
 	    	</table>
+	    </form>
 	    <div style="text-align:center;padding:5px">
-	    	选择处理人：<select id="receiver" class="easyui-combobox" 
-	    	data-options="valueField:'id',textField:'text'" style="width:80px"  name="receiver"></select>
+	    	选择处理人：<select id="reciver" class="easyui-combobox" 
+	    	data-options="valueField:'id',textField:'text'" style="width:80px"  name="language"><option value="0"></option><option value="ar">Admin</option><option value="bg">小李</option><option value="bg">小王</option></select>
 	    	&nbsp;&nbsp;
 			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">发送</a>
 	    </div>
 	    </div>
 	</div>
-	</form>
 	<script>
 
 		function getChecked(){
@@ -91,7 +91,7 @@
 	        		}
         	}
         	//var nodes = $('#tt').tree('getChecked', ['checked','indeterminate']);
-            $('#receiver').combobox('loadData',nodes);
+            $('#reciver').combobox('loadData',nodes);
 		}
 		
 		function getReciver(){
@@ -114,8 +114,6 @@
 		           // dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
 		            success:function(data){  
 		            	$.messager.alert("提示", "成功！","info");//alert("修改成功！");
-		            	var currTabTitle = self.parent.$('#tabs').tabs('getSelected').text();
-		            	self.parent.$('#tabs').tabs('close',currTabTitle);
 	                },  
 	                error:function(e) {  
 	                	$.messager.alert("提示", "出错：请联系管理员！","error");  //alert("出错：请联系管理员！");  

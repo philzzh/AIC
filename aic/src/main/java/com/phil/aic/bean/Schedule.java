@@ -3,7 +3,7 @@ package com.phil.aic.bean;
 import java.util.Date;
 
 public class Schedule {
-    private String scheduleId;
+    private Integer scheduleId;
 
     private Integer caseId;
 
@@ -17,12 +17,12 @@ public class Schedule {
 
     private String remark;
 
-    public String getScheduleId() {
+    public Integer getScheduleId() {
         return scheduleId;
     }
 
-    public void setScheduleId(String scheduleId) {
-        this.scheduleId = scheduleId == null ? null : scheduleId.trim();
+    public void setScheduleId(Integer scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
     public Integer getCaseId() {
