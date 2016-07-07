@@ -56,14 +56,14 @@
 				</div>-->
 				<div title="待办事宜" style="padding:5px">
 					<table id="onworking" class="easyui-datagrid"
-							data-options="url:'onworking.json',method:'get',pagination:true,singleSelect:true,fit:true,fitColumns:false">
+							data-options="url:'<%=request.getContextPath()%>/schedule/getScheduleJson',method:'get',pagination:true,singleSelect:true,fit:true,fitColumns:false">
 						<thead>
 							<tr>
-								<th data-options="field:'caseid',align:'center'" width="130">案件受理号</th>
-								<th data-options="field:'casename',align:'center'" width="238">案件名称</th>
-								<th data-options="field:'casestatus',align:'center'" width="160">案件状态</th>
-								<th data-options="field:'startdate',align:'center'" width="180">受理时间</th>
-								<th data-options="field:'senduser',align:'center'" width="120">发送人</th>
+								<th data-options="field:'scheduleId',align:'center'" width="130">案件受理号</th>
+								<th data-options="field:'_case',align:'center'" formatter="formatCase" width="238">案件名称</th>
+								<th data-options="field:'status',align:'center'" width="160">案件状态</th>
+								<th data-options="field:'sendTime',align:'center'" width="180">受理时间</th>
+								<th data-options="field:'account',align:'center'" formatter="formatAccount" width="120">发送人</th>
 								<th data-options="field:'remarks',align:'center'" width="220">备注</th>
 							</tr>
 						</thead>
@@ -90,7 +90,8 @@
 				iconCls: 'icon-edit',
 				handler: function(){
 					var row = $('#onworking').datagrid("getSelected");
-					alert(row.caseid);
+					alert(row.scheduleId);
+					refreshTable();
 					/*$('#dd').dialog({
 						title: 'My Dialog',
 						width: 900,
@@ -108,7 +109,7 @@
 //					showDialog('案件处理','case_process.html',914,576);
 //					showDialog('案件处理','case_process2.html',914,576);
 //					showDialog('案件处理','case_examine.html',914,598);
-					showDialog('案件处理','case_done.html',914,574);
+					//showDialog('案件处理','case_done.html',914,574);
 				}
 			}]
 		});
@@ -241,6 +242,32 @@ function addTabContent(subtitle, data) {
     } else {
         $('#tabs').tabs('select', subtitle);
     }
+}
+
+function formatCase(value){
+	        return value.caseName;
+	    }
+	   function  formatAccount (value){
+	        return value.accountName;
+	    }
+
+function refreshTable() {
+	
+	/*$.ajax({  
+	        type:"POST",   //http请求方式  
+	        url:"<%=request.getContextPath()%>/schedule/getScheduleJson", //发送给服务器的url  
+	        //data:data, //发送给服务器的参数  
+	        dataType:"json",  //告诉JQUERY返回的数据格式(注意此处数据格式一定要与提交的controller返回的数据格式一致,不然不会调用回调函数complete)  
+	        success:function(data){  
+	        //	alert(data);
+	        	alert(data);
+	        },  
+	        error:function(e) {  
+	        	$.messager.alert("提示", "出错：请联系管理员！","error");  //alert("出错：请联系管理员！");  
+	        }  
+	    });  */
+	
+	$('#onworking').datagrid('reload'); 
 }
 
 function createFrame(url) {

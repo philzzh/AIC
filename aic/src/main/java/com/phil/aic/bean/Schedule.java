@@ -13,9 +13,29 @@ public class Schedule {
 
     private String status;
 
-    private String reciver;
+    private String receiver;
 
     private String remark;
+    
+    private Account account;
+    
+    public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Case get_case() {
+		return _case;
+	}
+
+	public void set_case(Case _case) {
+		this._case = _case;
+	}
+
+	private Case _case;
 
     public Integer getScheduleId() {
         return scheduleId;
@@ -57,12 +77,12 @@ public class Schedule {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getReciver() {
-        return reciver;
+    public String getReceiver() {
+        return receiver;
     }
 
-    public void setReciver(String reciver) {
-        this.reciver = reciver == null ? null : reciver.trim();
+    public void setReceiver(String receiver) {
+        this.receiver = receiver == null ? null : receiver.trim();
     }
 
     public String getRemark() {

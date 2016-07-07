@@ -1,117 +1,165 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.phil.aic.dao.ScheduleMapper" >
-  <resultMap id="BaseResultMap" type="com.phil.aic.bean.Schedule" >
-    <id column="schedule_id" property="scheduleId" jdbcType="INTEGER" />
-    <result column="case_id" property="caseId" jdbcType="INTEGER" />
-    <result column="sender" property="sender" jdbcType="VARCHAR" />
-    <result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="reciver" property="reciver" jdbcType="VARCHAR" />
-    <result column="remark" property="remark" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    schedule_id, case_id, sender, send_time, status, reciver, remark
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from schedule
-    where schedule_id = #{scheduleId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from schedule
-    where schedule_id = #{scheduleId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.phil.aic.bean.Schedule" >
-    insert into schedule (schedule_id, case_id, sender, 
-      send_time, status, reciver, 
-      remark)
-    values (#{scheduleId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER}, #{sender,jdbcType=VARCHAR}, 
-      #{sendTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, #{reciver,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.phil.aic.bean.Schedule" >
-    insert into schedule
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="scheduleId != null" >
-        schedule_id,
-      </if>
-      <if test="caseId != null" >
-        case_id,
-      </if>
-      <if test="sender != null" >
-        sender,
-      </if>
-      <if test="sendTime != null" >
-        send_time,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="reciver != null" >
-        reciver,
-      </if>
-      <if test="remark != null" >
-        remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="scheduleId != null" >
-        #{scheduleId,jdbcType=INTEGER},
-      </if>
-      <if test="caseId != null" >
-        #{caseId,jdbcType=INTEGER},
-      </if>
-      <if test="sender != null" >
-        #{sender,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTime != null" >
-        #{sendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="reciver != null" >
-        #{reciver,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        #{remark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.phil.aic.bean.Schedule" >
-    update schedule
-    <set >
-      <if test="caseId != null" >
-        case_id = #{caseId,jdbcType=INTEGER},
-      </if>
-      <if test="sender != null" >
-        sender = #{sender,jdbcType=VARCHAR},
-      </if>
-      <if test="sendTime != null" >
-        send_time = #{sendTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="reciver != null" >
-        reciver = #{reciver,jdbcType=VARCHAR},
-      </if>
-      <if test="remark != null" >
-        remark = #{remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where schedule_id = #{scheduleId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.phil.aic.bean.Schedule" >
-    update schedule
-    set case_id = #{caseId,jdbcType=INTEGER},
-      sender = #{sender,jdbcType=VARCHAR},
-      send_time = #{sendTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR},
-      reciver = #{reciver,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
-    where schedule_id = #{scheduleId,jdbcType=INTEGER}
-  </update>
+<mapper namespace="com.phil.aic.dao.ScheduleMapper">
+	<resultMap id="BaseResultMap" type="com.phil.aic.bean.Schedule">
+		<id column="schedule_id" property="scheduleId" jdbcType="INTEGER" />
+		<result column="case_id" property="caseId" jdbcType="INTEGER" />
+		<result column="sender" property="sender" jdbcType="VARCHAR" />
+		<result column="send_time" property="sendTime" jdbcType="TIMESTAMP" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="receiver" property="receiver" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<association property="account" javaType="com.phil.aic.bean.Account">
+			<id column="account_id" property="accountId" jdbcType="VARCHAR" />
+			<result column="password" property="password" jdbcType="VARCHAR" />
+			<result column="dept_id" property="deptId" jdbcType="INTEGER" />
+			<result column="is_leader" property="isLeader" jdbcType="INTEGER" />
+			<result column="tel" property="tel" jdbcType="VARCHAR" />
+			<result column="account_name" property="accountName" jdbcType="VARCHAR" />
+		</association>
+		<association property="_case" javaType="com.phil.aic.bean.Case">
+			<id column="case_id" property="caseId" jdbcType="INTEGER" />
+			<result column="case_name" property="caseName" jdbcType="VARCHAR" />
+			<result column="case_type" property="caseType" jdbcType="VARCHAR" />
+			<result column="team_id" property="teamId" jdbcType="VARCHAR" />
+			<result column="misfeasor_id" property="misfeasorId" jdbcType="VARCHAR" />
+			<result column="case_address" property="caseAddress" jdbcType="VARCHAR" />
+			<result column="business_address" property="businessAddress"
+				jdbcType="VARCHAR" />
+			<result column="illegal_time" property="illegalTime" jdbcType="TIMESTAMP" />
+			<result column="dept_id" property="deptId" jdbcType="INTEGER" />
+			<result column="fine" property="fine" jdbcType="INTEGER" />
+			<result column="cause" property="cause" jdbcType="VARCHAR" />
+			<result column="fact" property="fact" jdbcType="VARCHAR" />
+			<result column="evidence" property="evidence" jdbcType="VARCHAR" />
+			<result column="audit" property="audit" jdbcType="VARCHAR" />
+			<result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+			<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+			<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+			<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		</association>
+	</resultMap>
+	<sql id="Base_Column_List">
+		schedule_id, case_id, sender, send_time, status, receiver,
+		remark
+	</sql>
+
+	<select id="selectSchedule" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select schedule_id, schedule.case_id,
+		case_name,`status`,send_time,account_name,schedule.remark from
+		`case`,schedule,account where case.case_id=schedule.case_id and
+		schedule.sender=account.account_id
+		and receiver = #{receiver,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from schedule
+		where schedule_id = #{scheduleId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		schedule
+		where schedule_id = #{scheduleId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.phil.aic.bean.Schedule">
+		insert into schedule
+		(schedule_id, case_id, sender,
+		send_time, status, receiver,
+		remark)
+		values (#{scheduleId,jdbcType=INTEGER}, #{caseId,jdbcType=INTEGER},
+		#{sender,jdbcType=VARCHAR},
+		#{sendTime,jdbcType=TIMESTAMP},
+		#{status,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.phil.aic.bean.Schedule">
+		insert into schedule
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="scheduleId != null">
+				schedule_id,
+			</if>
+			<if test="caseId != null">
+				case_id,
+			</if>
+			<if test="sender != null">
+				sender,
+			</if>
+			<if test="sendTime != null">
+				send_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="receiver != null">
+				receiver,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="scheduleId != null">
+				#{scheduleId,jdbcType=INTEGER},
+			</if>
+			<if test="caseId != null">
+				#{caseId,jdbcType=INTEGER},
+			</if>
+			<if test="sender != null">
+				#{sender,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="receiver != null">
+				#{receiver,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.phil.aic.bean.Schedule">
+		update schedule
+		<set>
+			<if test="caseId != null">
+				case_id = #{caseId,jdbcType=INTEGER},
+			</if>
+			<if test="sender != null">
+				sender = #{sender,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTime != null">
+				send_time = #{sendTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="receiver != null">
+				receiver = #{receiver,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where schedule_id = #{scheduleId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.phil.aic.bean.Schedule">
+		update schedule
+		set case_id = #{caseId,jdbcType=INTEGER},
+		sender =
+		#{sender,jdbcType=VARCHAR},
+		send_time = #{sendTime,jdbcType=TIMESTAMP},
+		status = #{status,jdbcType=VARCHAR},
+		receiver =
+		#{receiver,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR}
+		where
+		schedule_id = #{scheduleId,jdbcType=INTEGER}
+	</update>
 </mapper>

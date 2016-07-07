@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.phil.aic.bean.Account;
 import com.phil.aic.bean.Case;
 import com.phil.aic.bean.Schedule;
 import com.phil.aic.service.ICaseService;
@@ -33,11 +34,14 @@ public class CaseController {
 		int result;
 		Case case_ = new Case();
 		Schedule schedule = new Schedule();
+		String accountId = ((Account) request.getSession().getAttribute("account")).getAccountId();
 		case_.setCaseName(request.getParameter("caseName"));
 		case_.setCaseType(request.getParameter("caseType"));
 		case_.setRemarks(request.getParameter("remarks"));
-		schedule.setReciver(request.getParameter("receiver"));
-		schedule.setSender(request.getParameter("caseType"));
+		case_.setCreateBy(accountId);
+		schedule.setReceiver(request.getParameter("receiver"));
+		
+		schedule.setSender(accountId);
 		result = caseService.insertCaseAndSchedule(case_,schedule);
 		
 		s.print(result);
